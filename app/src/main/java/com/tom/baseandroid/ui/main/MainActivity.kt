@@ -51,7 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             })
             NetworkConnectionLiveData(this@MainActivity)
                 .observe(this@MainActivity, Observer { isConnected ->
-                    if (isConnected) getListPlayers()
+                    if (isConnected && players.value.isNullOrEmpty()) getListPlayers()
                 })
         }
     }
