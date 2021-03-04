@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TopbarView">
+        <attr name="tb_title" format="string" />
+        <attr name="tb_title_bold" format="boolean" />
+        <attr name="tb_title_color" format="color" />
+        <attr name="toolbar_drawable_back" format="reference" />
+        <attr name="toolbar_search_hint" format="string" />
+        <attr name="toolbar_background_color" format="color" />
+        <attr name="toolbar_back_text" format="string" />
+        <attr name="tb_back_color" format="color" />
+        <attr name="android:gravity" />
+        <attr name="toolbar_title_tv" format="string" />
+    </declare-styleable>
+</resources>

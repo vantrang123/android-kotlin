@@ -4,21 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="adapter"
-            type="com.tom.baseandroid.ui.main.MainAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/defaultBackgroundColor">
+        android:layout_height="match_parent">
 
         <com.tom.baseandroid.ui.utils.ToolbarView
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tb_title="@string/main_title"
+            app:tb_title="@string/countries_title"
             app:toolbar_drawable_back="@drawable/ic_back"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +22,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:adapter="@{adapter}"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

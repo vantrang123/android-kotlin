@@ -9,7 +9,7 @@
 
         <variable
             name="player"
-            type="com.rikai.baseandroid.data.model.Player" />
+            type="com.tom.baseandroid.data.model.Player" />
 
         <variable
             name="image"

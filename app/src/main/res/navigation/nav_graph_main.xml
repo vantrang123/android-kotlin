@@ -2,9 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_sign_in"
-    app:startDestination="@id/login_fragment">
-
+    android:id="@+id/nav_graph_main">
     <fragment
         android:id="@+id/login_fragment"
         android:name="com.tom.baseandroid.ui.login.LoginFragment"
@@ -19,20 +17,4 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/sign_up_fragment"
-        android:name="com.tom.baseandroid.ui.login.SignUpFragment"
-        android:label="SignUpFragment"
-        app:popUpTo="@+id/nav_graph_sign_in"
-        tools:layout="@layout/fragment_sign_up">
-        <action
-            android:id="@+id/action_sign_up_fragment_to_login_fragment"
-            app:destination="@id/login_fragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
 </navigation>

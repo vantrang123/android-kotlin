@@ -9,4 +9,8 @@
     <string name="wrong_email_format">Wrong email format</string>
     <string name="password_size">Password must be at least 6 characters</string>
     <string name="no_network">No internet connection</string>
+
+    // title
+    <string name="main_title">main title</string>
+    <string name="countries_title">main title</string>
 </resources>
