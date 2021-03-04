@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.tom.baseandroid.R
+import com.tom.baseandroid.data.network.NetworkConnectionLiveData
 import com.tom.baseandroid.ui.utils.LoadingProgress
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -19,6 +20,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
     private lateinit var mViewDataBinding: B
     protected lateinit var mViewModel: V
     private var loadingProgress: LoadingProgress? = null
+    private var snackBarNetwork : Snackbar? = null
 
     val binding: B get() = mViewDataBinding
     val viewModel: V get() = mViewModel
@@ -51,6 +53,21 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
                     dismissLoadingDialog()
                 }
             })
+
+            NetworkConnectionLiveData(this@BaseActivity)
+                .observe(this@BaseActivity, Observer { isConnected ->
+                    onNetworkConnectionChanged(isConnected)
+                })
+        }
+    }
+
+    private fun onNetworkConnectionChanged(isConnected: Boolean) {
+        val messageToUser = "You are offline now."
+        if (snackBarNetwork == null) snackBarNetwork = snackBar(messageToUser, Snackbar.LENGTH_INDEFINITE, false)
+        if (!isConnected) {
+            snackBarNetwork?.show()
+        } else {
+            snackBarNetwork?.dismiss()
         }
     }
 
@@ -76,7 +93,14 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
         }
     }
 
-    protected fun snackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    protected fun snackBar(
+        message: String,
+        duration: Int = Snackbar.LENGTH_LONG,
+        isShow: Boolean = true
+    ): Snackbar {
+        return Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).apply {
+            this.duration = duration
+            if (isShow) show()
+        }
     }
 }

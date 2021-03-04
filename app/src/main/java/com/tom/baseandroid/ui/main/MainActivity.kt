@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.data.model.Player
+import com.tom.baseandroid.data.network.NetworkConnectionLiveData
 import com.tom.baseandroid.databinding.ActivityMainBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.visible
@@ -44,11 +45,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         viewModel.apply {
-            getListPlayers()
             players.observe(this@MainActivity, Observer {
                 adapter.setPlayerList(it)
                 binding.recyclerView.visible()
             })
+            NetworkConnectionLiveData(this@MainActivity)
+                .observe(this@MainActivity, Observer { isConnected ->
+                    if (isConnected) getListPlayers()
+                })
         }
     }
 

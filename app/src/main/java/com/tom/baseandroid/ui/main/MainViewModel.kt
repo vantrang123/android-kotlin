@@ -26,9 +26,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
-                val result = withContext(io) {
-                    async { repository.observerPlayers() }
-                }
+                val result = withContext(io) { async { repository.observerPlayers() } }
                 result.await().apply {
                     _players.postValue(body())
                     isLoading.postValue(false)
