@@ -20,7 +20,10 @@ ext {
     def firebase_analytics_version = "17.2.2"
     def firebase_messaging_version = "20.1.0"
 
+    // retrofit
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    converterGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    adapterRxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     gson = "com.google.code.gson:gson:$gsonVersion"
     gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
 

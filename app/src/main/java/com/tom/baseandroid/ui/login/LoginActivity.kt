@@ -18,4 +18,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_login
+
+    override fun onBackPressed() {
+        moveTaskToBack(false)
+    }
 }

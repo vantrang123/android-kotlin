@@ -35,7 +35,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
 
             btnLogin.setOnClickListener {
                 requireActivity().lauchActivity<MainActivity> {  }
-                requireActivity().overridePendingTransition(R.anim.hold, R.anim.enter)
                 requireActivity().finish()
             }
 

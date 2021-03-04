@@ -1,5 +1,6 @@
 package com.tom.baseandroid.data.model
 
+import com.tom.baseandroid.data.network.NoConnectionException
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Response
@@ -12,7 +13,7 @@ class ErrorMessage(private val throwable: Throwable? = null, var message: String
         throwable?.let {
             when (throwable) {
                 is HttpException -> setResponseError(throwable.response()!!)
-//                is NoConnectionException -> setError(NETWORK_ERROR)
+                is NoConnectionException -> setError(NETWORK_ERROR)
                 else -> onApiFailure(throwable)
             }
         }

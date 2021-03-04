@@ -9,8 +9,12 @@
     <string name="wrong_email_format">Wrong email format</string>
     <string name="password_size">Password must be at least 6 characters</string>
     <string name="no_network">No internet connection</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
 
     // title
     <string name="main_title">main title</string>
     <string name="countries_title">main title</string>
+    <string name="login_title">login title</string>
+    <string name="sign_up_title">sign up title</string>
 </resources>

@@ -24,7 +24,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             lauchActivity<LoginActivity> { }
-            overridePendingTransition(R.anim.hold, R.anim.enter)
         }, 2_000)
     }
 

@@ -1,10 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/defaultBackgroundColor">
+
+        <com.tom.baseandroid.ui.utils.ToolbarView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tb_title="@string/sign_up_title"
+            app:toolbar_drawable_back="@drawable/ic_back" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:srcCompat="@drawable/logo_rikai" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginHorizontal="@dimen/dp_32"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:background="@drawable/bg_white_top_corner_15dp"
+            android:ellipsize="end"
+            android:hint="@string/email"
+            android:inputType="text|textEmailAddress"
+            android:lines="1"
+            android:maxLength="64"
+            android:paddingHorizontal="@dimen/dp_30"
+            android:textColor="@color/blue_light"
+            android:textColorHint="@color/gray_chalice"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toTopOf="@+id/guideline" />
+
+        <RelativeLayout
+            android:id="@+id/rlFill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtPasswordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_32"
+                android:layout_marginTop="@dimen/dp_2"
+                android:background="@drawable/bg_white_bottom_corner_15dp"
+                app:boxBackgroundMode="none"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/blue_light">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_56"
+                    android:layout_marginHorizontal="@dimen/dp_18"
+                    android:hint="@string/password"
+                    android:textCursorDrawable="@color/blue_light"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:textColorHighlight="@color/blue_light"
+                    android:maxLength="64"
+                    android:textColor="@color/blue_light"
+                    android:textColorHint="@color/gray_chalice"
+                    android:textSize="@dimen/sp_16" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:backgroundTint="@color/blue_light"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rlFill" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
