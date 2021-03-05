@@ -35,6 +35,13 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    internal fun provideGson(): Gson {
+        val gsonBuilder = GsonBuilder()
+        return gsonBuilder.create()
+    }
+
+    @Provides
+    @Singleton
     fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor, context: Context, prefs: IConfigurationPrefs): OkHttpClient {
         return OkHttpClient()
                 .newBuilder()
@@ -72,12 +79,5 @@ class NetworkModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build()
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideGson(): Gson {
-        val gsonBuilder = GsonBuilder()
-        return gsonBuilder.create()
     }
 }

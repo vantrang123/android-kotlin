@@ -21,6 +21,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class Application : DaggerApplication(), Application.ActivityLifecycleCallbacks {
+    private var activityReferences = 0
+    private var isActivityChangingConfigurations = false
 
     @Inject
     lateinit var mSocketManager: SocketManager
@@ -83,15 +85,40 @@ class Application : DaggerApplication(), Application.ActivityLifecycleCallbacks 
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
 
-    override fun onActivityStarted(activity: Activity) {}
+    override fun onActivityStarted(activity: Activity) {
+        if (++activityReferences == 1 && !isActivityChangingConfigurations && !activityVisible) {
+            /*App in foreground*/
+            activityVisible = true
+            if (!configurationPrefs.apiToken.isNullOrEmpty()) {
+                onRegisterSocketListener(mSocketManager)
+            } else {
+                mSocketManager.disconnect()
+            }
+        }
+    }
 
     override fun onActivityResumed(activity: Activity) {}
 
     override fun onActivityPaused(activity: Activity) {}
 
-    override fun onActivityStopped(activity: Activity) {}
+    override fun onActivityStopped(activity: Activity) {
+        isActivityChangingConfigurations = activity.isChangingConfigurations
+        if (--activityReferences == 0 && !isActivityChangingConfigurations) {
+            /*App in background*/
+            activityVisible = false
+        }
+    }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
 
-    override fun onActivityDestroyed(activity: Activity) {}
+    override fun onActivityDestroyed(activity: Activity) {
+        if (activityReferences == 0) {
+            mSocketManager.disconnect()
+        }
+    }
+
+    companion object {
+        private var activityVisible: Boolean = false
+        fun isAppVisibility(): Boolean = activityVisible
+    }
 }
