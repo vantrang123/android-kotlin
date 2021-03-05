@@ -1,9 +1,11 @@
 package com.tom.baseandroid.ui.login
 
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
 import com.tom.baseandroid.base.EmptyViewModel
+import com.tom.baseandroid.data.model.User
 import com.tom.baseandroid.databinding.FragmentSignUpBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
@@ -19,20 +21,39 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
     override fun getViewModelClass(): Class<EmptyViewModel> = EmptyViewModel::class.java
 
     override fun initView() {
-        binding.root.setOnClickListener {
-            hideKeyboard(requireContext())
-        }
+        binding.apply {
+            root.setOnClickListener {
+                hideKeyboard(requireContext())
+            }
+            btnSignUp.setOnClickListener {
+                val user = User().apply {
+                    email = edtEmail.text.toString()
+                    password = edtPassword.text.toString()
+                }
+                getParentViewModel()?.saveAccount(user)
 
-        binding.btnSignUp.setOnClickListener {
-            requireActivity().lauchActivity<MainActivity> {  }
-            requireActivity().finish()
+            }
+            toolbar.apply {
+                setTitle(getString(R.string.sign_up_title))
+                onBackPressed { findNavController().popBackStack(R.id.login_fragment, false) }
+            }
         }
+        initViewModel()
+    }
 
-        binding.toolbar.apply {
-            setTitle(getString(R.string.sign_up_title))
-            onBackPressed { findNavController().popBackStack(R.id.login_fragment, false) }
-        }
+    override fun initViewModel() {
+        super.initViewModel()
+        getParentViewModel()?.signUpResult?.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                requireActivity().lauchActivity<MainActivity> {  }
+                requireActivity().finish()
+            }
+        })
     }
 
     override fun getLayoutResourceId(): Int = R.layout.fragment_sign_up
+
+    private fun getParentViewModel(): LoginViewModel? {
+        return (activity as? LoginActivity)?.viewModel
+    }
 }

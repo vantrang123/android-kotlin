@@ -11,6 +11,8 @@
     <string name="no_network">No internet connection</string>
     <string name="email">email</string>
     <string name="password">password</string>
+    <string name="error_not_found_account">Email or password not correct!</string>
+    <string name="error_some_thing_wrong">Some thing went wrong!</string>
 
     // title
     <string name="main_title">main title</string>

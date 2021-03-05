@@ -1,5 +1,6 @@
 package com.tom.baseandroid.ui.login
 
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.tom.baseandroid.R
@@ -34,8 +35,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
             }
 
             btnLogin.setOnClickListener {
-                requireActivity().lauchActivity<MainActivity> {  }
-                requireActivity().finish()
+                getParentViewModel()?.checkLogin(edtEmail.text.toString(), edtPassword.text.toString())
             }
 
             edtPassword.apply {
@@ -52,9 +52,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
         obsInput()
     }
 
+    override fun initViewModel() {
+        super.initViewModel()
+        getParentViewModel()?.loginResult?.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                requireActivity().lauchActivity<MainActivity> { }
+                requireActivity().finish()
+            }
+        })
+    }
+
     private fun doLogin() {
         binding.apply {
-            snackBar("Do Login!")
+            btnLogin.performClick()
         }
     }
 
@@ -72,7 +82,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
         }.addTo(compositeDisposable)
     }
 
-    private fun getParentViewModel(): LoginViewModel {
-        return (activity as? LoginActivity)?.viewModel ?: LoginViewModel()
+    private fun getParentViewModel(): LoginViewModel? {
+        return (activity as? LoginActivity)?.viewModel
     }
 }
