@@ -66,7 +66,10 @@ class DbService : PlayerInterface {
         val realm = Realm.getDefaultInstance()
         return try {
             realm.use {
-                it.copyFromRealm(it.where(User::class.java).equalTo("email", email).equalTo("password", password).findFirst())
+                it.copyFromRealm(it.where(User::class.java)
+                        .equalTo("email", email)
+                        .equalTo("password", password)
+                        .findFirst())
             }
         } catch (e: Exception) {
             null

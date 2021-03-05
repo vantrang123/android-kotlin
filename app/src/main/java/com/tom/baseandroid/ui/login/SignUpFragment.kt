@@ -31,7 +31,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
                     password = edtPassword.text.toString()
                 }
                 getParentViewModel()?.saveAccount(user)
-
             }
             toolbar.apply {
                 setTitle(getString(R.string.sign_up_title))
