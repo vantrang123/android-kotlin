@@ -36,7 +36,7 @@ class DbService : PlayerInterface {
         return try {
             r.use {
                 it.beginTransaction()
-                it.deleteAll()
+                it.delete(Player::class.java)
                 it.copyToRealmOrUpdate(players)
                 it.commitTransaction()
                 it.close()

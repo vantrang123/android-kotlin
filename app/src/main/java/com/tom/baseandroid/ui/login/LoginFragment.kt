@@ -50,6 +50,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
         }
 
         obsInput()
+        initViewModel()
     }
 
     override fun initViewModel() {
