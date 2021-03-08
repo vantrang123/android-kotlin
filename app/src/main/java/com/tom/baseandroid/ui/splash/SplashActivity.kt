@@ -8,9 +8,15 @@ import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.databinding.ActivitySplashBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.login.LoginActivity
+import com.tom.baseandroid.ui.main.MainActivity
+import javax.inject.Inject
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
+    @Inject
+    lateinit var pref: IConfigurationPrefs
+
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
     }
@@ -21,9 +27,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         binding.ivLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in).apply {
             duration =  2_000
         })
-
         Handler(Looper.getMainLooper()).postDelayed({
-            lauchActivity<LoginActivity> { }
+            if (pref.user == null) lauchActivity<LoginActivity> { } else lauchActivity<MainActivity> { }
         }, 2_000)
     }
 

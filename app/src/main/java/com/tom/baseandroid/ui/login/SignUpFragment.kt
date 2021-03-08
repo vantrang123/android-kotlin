@@ -9,10 +9,14 @@ import com.tom.baseandroid.data.model.User
 import com.tom.baseandroid.databinding.FragmentSignUpBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.utils.Utils.hideKeyboard
+import javax.inject.Inject
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
+    @Inject
+    lateinit var prefs: IConfigurationPrefs
 
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
@@ -36,6 +40,13 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
                 setTitle(getString(R.string.sign_up_title))
                 onBackPressed { findNavController().popBackStack(R.id.login_fragment, false) }
             }
+            edtPassword.apply {
+                setOnEditorActionListener { _, _, _ ->
+                    hideKeyboard(requireContext())
+                    btnSignUp.performClick()
+                    true
+                }
+            }
         }
         initViewModel()
     }
@@ -43,7 +54,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         getParentViewModel()?.signUpResult?.observe(viewLifecycleOwner, Observer {
-            if (it) {
+            if (it.second) {
+                prefs.user = it.first!!
                 requireActivity().lauchActivity<MainActivity> {  }
                 requireActivity().finish()
             }

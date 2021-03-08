@@ -9,14 +9,19 @@ import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.databinding.FragmentLoginBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.utils.Utils.hideKeyboard
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
 class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
     private val compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var prefs: IConfigurationPrefs
 
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
@@ -56,7 +61,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         getParentViewModel()?.loginResult?.observe(viewLifecycleOwner, Observer {
-            if (it) {
+            if (it.second) {
+                prefs.user = it.first!!
                 requireActivity().lauchActivity<MainActivity> { }
                 requireActivity().finish()
             }

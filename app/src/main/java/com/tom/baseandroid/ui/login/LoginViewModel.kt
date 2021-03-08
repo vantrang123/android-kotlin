@@ -27,8 +27,8 @@ class LoginViewModel @Inject constructor(
     private val emailMatch = MutableLiveData<Boolean>()
     private val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)\$"
 
-    val loginResult = MutableLiveData<Boolean>()
-    val signUpResult = MutableLiveData<Boolean>()
+    val loginResult = MutableLiveData<Pair<User?, Boolean>>()
+    val signUpResult = MutableLiveData<Pair<User?, Boolean>>()
 
     fun isEmailFormatCorrect(it: String): LiveData<Boolean> {
         val pattern: Pattern = Pattern.compile(emailRegex)
@@ -45,12 +45,12 @@ class LoginViewModel @Inject constructor(
                 val result = withContext(io) { async { dbService.getUser(email, password) } }
                 result.await().apply {
                     isLoading.postValue(false)
-                    loginResult.postValue(this != null)
+                    loginResult.postValue(Pair(this, this != null))
                     if (this == null) error.postValue(ErrorMessage(message = context.getString(R.string.error_not_found_account)))
                 }
             } catch (e: Exception) {
                 isLoading.postValue(false)
-                loginResult.postValue(false)
+                loginResult.postValue(Pair(null, false))
             }
         }
     }
@@ -62,12 +62,12 @@ class LoginViewModel @Inject constructor(
                 val result = withContext(io) { async { dbService.addOrUpdateUser(user) } }
                 result.await().apply {
                     isLoading.postValue(false)
-                    signUpResult.postValue(this)
+                    signUpResult.postValue(Pair(user, this))
                     if (!this) error.postValue(ErrorMessage(message = context.getString(R.string.error_some_thing_wrong)))
                 }
             } catch (e: Exception) {
                 isLoading.postValue(false)
-                signUpResult.postValue(false)
+                signUpResult.postValue(Pair(null, false))
             }
         }
     }
