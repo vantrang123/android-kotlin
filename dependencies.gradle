@@ -19,6 +19,7 @@ ext {
     def socket_version = "0.6.0"
     def firebase_analytics_version = "17.2.2"
     def firebase_messaging_version = "20.1.0"
+    def banner_version = "2.6.6"
 
     // retrofit
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -74,4 +75,7 @@ ext {
 
     // socket.IO
     socket = "com.github.nkzawa:socket.io-client:$socket_version"
+
+    //banner
+    banner = "com.zhpan.library:bannerview:$banner_version"
 }
