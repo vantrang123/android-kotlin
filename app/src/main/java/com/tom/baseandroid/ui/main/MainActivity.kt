@@ -1,65 +1,50 @@
 package com.tom.baseandroid.ui.main
 
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
-import com.tom.baseandroid.data.model.Player
-import com.tom.baseandroid.data.network.NetworkConnectionLiveData
+import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.databinding.ActivityMainBinding
 import com.tom.baseandroid.di.injectViewModel
-import com.tom.baseandroid.extensions.visible
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
-    private lateinit var adapter: MainAdapter
+/**
+ *Created by VanTrang on 8/22/2019.
+ */
+class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
+    private var mAdapter: MainViewpagerAdapter? = null
 
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
     }
 
-    override fun getViewModelClass(): Class<MainViewModel> = MainViewModel::class.java
+    override fun getViewModelClass(): Class<EmptyViewModel> = EmptyViewModel::class.java
 
     override fun initView() {
-        adapter = MainAdapter(this::onItemClicked)
-
-        binding.recyclerView.layoutManager =
-                LinearLayoutManager(
-                        this, LinearLayoutManager.VERTICAL,
-                        false
-                )
-
-        binding.toolbar.apply {
-            onBackPressed {
-                onBackPressed()
-            }
-            setTitle(getString(R.string.main_title))
-        }
-
-        binding.adapter = adapter
-        initViewModel()
-    }
-
-    override fun initViewModel() {
-        super.initViewModel()
-        viewModel.apply {
-            players.observe(this@MainActivity, Observer {
-                adapter.setPlayerList(it)
-                binding.recyclerView.visible()
-            })
-            NetworkConnectionLiveData(this@MainActivity)
-                .observe(this@MainActivity, Observer { isConnected ->
-                    if (isConnected && players.value.isNullOrEmpty()) getListPlayers()
-                })
-        }
+        setupViewPager()
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_main
 
-    private fun onItemClicked(player: Player) {
-        snackBar("Click ${player.firstName + player.lastName}")
+    private fun setupViewPager() {
+        viewPager.apply viewPager@{
+            setPagingEnable(true)
+            mAdapter = MainViewpagerAdapter(this@MainActivity, supportFragmentManager)
+            adapter = mAdapter
+            offscreenPageLimit = 5
+            tabLayout.apply tabLayout@{
+                setupWithViewPager(this@viewPager)
+                for (i in 0..tabCount) {
+                    getTabAt(i)?.customView = mAdapter?.getTabView(i)
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
+        if (viewPager?.currentItem != 0) {
+            viewPager?.currentItem = 0
+            return
+        }
         moveTaskToBack(false)
     }
 }

@@ -6,7 +6,7 @@ import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.di.ViewModelKey
 import com.tom.baseandroid.di.factory.ViewModelFactory
 import com.tom.baseandroid.ui.login.LoginViewModel
-import com.tom.baseandroid.ui.main.MainViewModel
+import com.tom.baseandroid.ui.player.PlayerViewModel
 import com.tom.baseandroid.ui.splash.SplashViewModel
 import com.tom.baseandroid.ui.tutorial.TutorialViewModel
 import dagger.Binds
@@ -20,8 +20,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    internal abstract fun providesPlayerViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(PlayerViewModel::class)
+    internal abstract fun providesPlayerViewModel(viewModel: PlayerViewModel): ViewModel
 
     @Binds
     @IntoMap

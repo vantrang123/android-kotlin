@@ -8,12 +8,10 @@ import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.databinding.ActivitySplashBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
-import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.login.LoginActivity
-import com.tom.baseandroid.ui.main.MainActivity
+import com.tom.baseandroid.ui.player.PlayerActivity
 import com.tom.baseandroid.ui.tutorial.TutorialActivity
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
@@ -35,7 +33,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     lauchActivity<TutorialActivity> { }
                 }
                 prefs.user != null -> {
-                    lauchActivity<MainActivity> { }
+                    lauchActivity<PlayerActivity> { }
                 }
                 else -> lauchActivity<LoginActivity> { }
             }

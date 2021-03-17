@@ -4,6 +4,7 @@ import com.tom.baseandroid.di.scope.ActivityScoped
 import com.tom.baseandroid.ui.EmptyActivity
 import com.tom.baseandroid.ui.login.LoginActivity
 import com.tom.baseandroid.ui.main.MainActivity
+import com.tom.baseandroid.ui.player.PlayerActivity
 import com.tom.baseandroid.ui.splash.SplashActivity
 import com.tom.baseandroid.ui.tutorial.TutorialActivity
 import dagger.Module
@@ -13,7 +14,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuilder {
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract fun contributesMainActivity(): MainActivity
+    abstract fun contributesPlayerActivity(): PlayerActivity
 
     @ActivityScoped
     @ContributesAndroidInjector
@@ -29,4 +30,8 @@ abstract class ActivityBuilder {
     @ActivityScoped
     @ContributesAndroidInjector
     abstract fun contributesTutorialActivity(): TutorialActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [MainModule::class])
+    abstract fun contributesMainActivity(): MainActivity
 }

@@ -22,4 +22,16 @@
 
     // tutorial
     <string name="start_now">Start Now!</string>
+
+    // title main tab
+    <string-array name="title_viewpager_main">
+        <item>Home</item>
+        <item>New Feed</item>
+        <item>Live Stream</item>
+        <item>Notifications</item>
+        <item>Account</item>
+    </string-array>
+
+    // search
+    <string name="hint_search">Search</string>
 </resources>

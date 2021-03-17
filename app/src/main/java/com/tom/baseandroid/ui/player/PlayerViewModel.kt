@@ -1,4 +1,4 @@
-package com.tom.baseandroid.ui.main
+package com.tom.baseandroid.ui.player
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import kotlin.Exception
 
-class MainViewModel @Inject constructor(
+class PlayerViewModel @Inject constructor(
     private val repository: PlayerRepository,
     private val dbService: DbService,
     @Named("IO") private val io: CoroutineDispatcher,

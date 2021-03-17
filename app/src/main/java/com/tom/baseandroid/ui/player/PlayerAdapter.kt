@@ -1,4 +1,4 @@
-package com.tom.baseandroid.ui.main
+package com.tom.baseandroid.ui.player
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

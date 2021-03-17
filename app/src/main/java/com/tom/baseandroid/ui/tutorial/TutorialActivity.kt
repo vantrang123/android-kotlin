@@ -12,7 +12,7 @@ import com.tom.baseandroid.extensions.dp
 import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
-import com.tom.baseandroid.ui.main.MainActivity
+import com.tom.baseandroid.ui.player.PlayerActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
 import com.zhpan.bannerview.constants.IndicatorSlideMode
@@ -56,7 +56,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
 
     override fun navigation() {
         prefs.isFirstUseApp = false
-        lauchActivity<MainActivity> { }
+        lauchActivity<PlayerActivity> { }
     }
 
     private fun getDrawables() {
