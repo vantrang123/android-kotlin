@@ -54,8 +54,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         getParentViewModel()?.signUpResult?.observe(viewLifecycleOwner, Observer {
-            if (it.second) {
-                prefs.user = it.first!!
+            if (it) {
                 requireActivity().lauchActivity<MainActivity> {  }
                 requireActivity().finish()
             }

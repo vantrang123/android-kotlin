@@ -61,8 +61,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         getParentViewModel()?.loginResult?.observe(viewLifecycleOwner, Observer {
-            if (it.second) {
-                prefs.user = it.first!!
+            if (it) {
                 requireActivity().lauchActivity<MainActivity> { }
                 requireActivity().finish()
             }
