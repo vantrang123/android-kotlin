@@ -55,6 +55,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
     override fun getLayoutResourceId(): Int = R.layout.activity_tutorial
 
     override fun navigation() {
+        prefs.isFirstUseApp = false
         lauchActivity<MainActivity> { }
     }
 
@@ -89,12 +90,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
             create(data)
         }
 
-        btnStart.apply {
-            setOnClickListener {
-                navigation()
-                prefs.isFirstUseApp = false
-            }
-        }
+        btnStart.setOnClickListener { navigation() }
     }
 
     companion object {
