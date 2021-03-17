@@ -6,4 +6,5 @@ import com.tom.baseandroid.data.model.ErrorMessage
 interface IViewModel {
     var isLoading: MutableLiveData<Boolean>
     var error: MutableLiveData<ErrorMessage>
+
 }

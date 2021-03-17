@@ -1,6 +1,7 @@
 package com.tom.baseandroid.ui.login
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,7 @@ import com.tom.baseandroid.base.BaseViewModel
 import com.tom.baseandroid.data.local.DbService
 import com.tom.baseandroid.data.model.ErrorMessage
 import com.tom.baseandroid.data.model.User
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -24,6 +26,8 @@ class LoginViewModel @Inject constructor(
         @Named("IO") private val io: CoroutineDispatcher,
         @Named("MAIN") private val main: CoroutineDispatcher
 ) : BaseViewModel() {
+    @Inject
+    lateinit var prefs: IConfigurationPrefs
     private val emailMatch = MutableLiveData<Boolean>()
     private val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)\$"
 
@@ -46,6 +50,7 @@ class LoginViewModel @Inject constructor(
                 result.await().apply {
                     isLoading.postValue(false)
                     loginResult.postValue(this != null)
+                    if (this != null) prefs.user = this
                     if (this == null) error.postValue(ErrorMessage(message = context.getString(R.string.error_not_found_account)))
                 }
             } catch (e: Exception) {
@@ -63,6 +68,7 @@ class LoginViewModel @Inject constructor(
                 result.await().apply {
                     isLoading.postValue(false)
                     signUpResult.postValue(this)
+                    if (this) prefs.user = user
                     if (!this) error.postValue(ErrorMessage(message = context.getString(R.string.error_some_thing_wrong)))
                 }
             } catch (e: Exception) {

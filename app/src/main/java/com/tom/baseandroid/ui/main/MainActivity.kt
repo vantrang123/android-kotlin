@@ -30,12 +30,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         binding.toolbar.apply {
             onBackPressed {
-                moveTaskToBack(false)
+                onBackPressed()
             }
             setTitle(getString(R.string.main_title))
-        }
-        binding.toolbar.onBackPressed {
-            moveTaskToBack(false)
         }
 
         binding.adapter = adapter

@@ -1,7 +1,9 @@
 package com.tom.baseandroid.preference
 
 import android.content.Context
+import com.google.gson.Gson
 import com.tom.baseandroid.data.model.BaseConfig
+import com.tom.baseandroid.data.model.User
 import com.tom.baseandroid.utils.Utils.languageDefault
 import javax.inject.Inject
 
@@ -26,8 +28,21 @@ class ConfigurationPrefs @Inject constructor(
                 ?: languageDefault()
         set(lang) = pref.edit().putString(KEY_LANGUAGE_DATA, lang).apply()
 
+    override var isFirstUseApp: Boolean
+        get() = pref.getBoolean(KEY_FIRST_USE_APP, true)
+        set(value) = pref.edit().putBoolean(KEY_FIRST_USE_APP, value).apply()
+
+    override var user: User?
+        get() = Gson().fromJson(
+                pref.getString(KEY_USER, null),
+                User::class.java
+        )
+        set(value) = pref.edit().putString(KEY_USER, Gson().toJson(value)).apply()
+
     companion object {
         private const val KEY_API_TOKEN = "KEY_API_TOKEN"
         private const val KEY_LANGUAGE_DATA = "KEY_LANGUAGE"
+        private const val KEY_FIRST_USE_APP = "KEY_FIRST_USE_APP"
+        private const val KEY_USER = "KEY_USER"
     }
 }
