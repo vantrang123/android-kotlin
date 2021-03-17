@@ -44,6 +44,7 @@
             android:background="@drawable/bg_white_top_corner_15dp"
             android:ellipsize="end"
             android:hint="@string/email"
+            android:imeOptions="actionNext"
             android:inputType="text|textEmailAddress"
             android:lines="1"
             android:maxLength="64"
@@ -78,13 +79,14 @@
                     android:layout_height="@dimen/dp_56"
                     android:layout_marginHorizontal="@dimen/dp_18"
                     android:hint="@string/password"
-                    android:textCursorDrawable="@color/blue_light"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:lines="1"
-                    android:textColorHighlight="@color/blue_light"
                     android:maxLength="64"
                     android:textColor="@color/blue_light"
+                    android:textColorHighlight="@color/blue_light"
                     android:textColorHint="@color/gray_chalice"
+                    android:textCursorDrawable="@color/blue_light"
                     android:textSize="@dimen/sp_16" />
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>

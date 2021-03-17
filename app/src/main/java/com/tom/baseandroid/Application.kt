@@ -17,6 +17,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import org.json.JSONObject
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -83,7 +84,12 @@ class Application : DaggerApplication(), Application.ActivityLifecycleCallbacks 
         }
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        mSocketManager.setListener {
+            val data = JSONObject(it)
+            // handle here
+        }
+    }
 
     override fun onActivityStarted(activity: Activity) {
         if (++activityReferences == 1 && !isActivityChangingConfigurations && !activityVisible) {

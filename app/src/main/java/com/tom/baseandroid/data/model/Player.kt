@@ -1,9 +1,12 @@
 package com.tom.baseandroid.data.model
 
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import java.util.*
 
 open class Player : RealmObject() {
-    var id: String? = null
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString()
     var firstName: String? = null
     var lastName: String? = null
     var gender: String? = null
