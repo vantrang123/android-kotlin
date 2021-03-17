@@ -9,6 +9,7 @@ import com.tom.baseandroid.base.BaseViewModel
 import com.tom.baseandroid.data.local.DbService
 import com.tom.baseandroid.data.model.ErrorMessage
 import com.tom.baseandroid.data.model.User
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -24,11 +25,13 @@ class LoginViewModel @Inject constructor(
         @Named("IO") private val io: CoroutineDispatcher,
         @Named("MAIN") private val main: CoroutineDispatcher
 ) : BaseViewModel() {
+    @Inject
+    lateinit var prefs: IConfigurationPrefs
     private val emailMatch = MutableLiveData<Boolean>()
     private val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)\$"
 
-    val loginResult = MutableLiveData<Pair<User?, Boolean>>()
-    val signUpResult = MutableLiveData<Pair<User?, Boolean>>()
+    val loginResult = MutableLiveData<Boolean>()
+    val signUpResult = MutableLiveData<Boolean>()
 
     fun isEmailFormatCorrect(it: String): LiveData<Boolean> {
         val pattern: Pattern = Pattern.compile(emailRegex)
@@ -45,12 +48,13 @@ class LoginViewModel @Inject constructor(
                 val result = withContext(io) { async { dbService.getUser(email, password) } }
                 result.await().apply {
                     isLoading.postValue(false)
-                    loginResult.postValue(Pair(this, this != null))
+                    loginResult.postValue(this != null)
+                    if (this != null) prefs.user = this
                     if (this == null) error.postValue(ErrorMessage(message = context.getString(R.string.error_not_found_account)))
                 }
             } catch (e: Exception) {
                 isLoading.postValue(false)
-                loginResult.postValue(Pair(null, false))
+                loginResult.postValue(false)
             }
         }
     }
@@ -62,12 +66,13 @@ class LoginViewModel @Inject constructor(
                 val result = withContext(io) { async { dbService.addOrUpdateUser(user) } }
                 result.await().apply {
                     isLoading.postValue(false)
-                    signUpResult.postValue(Pair(user, this))
+                    signUpResult.postValue(this)
+                    if (this) prefs.user = user
                     if (!this) error.postValue(ErrorMessage(message = context.getString(R.string.error_some_thing_wrong)))
                 }
             } catch (e: Exception) {
                 isLoading.postValue(false)
-                signUpResult.postValue(Pair(null, false))
+                signUpResult.postValue(false)
             }
         }
     }

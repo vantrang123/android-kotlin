@@ -8,15 +8,17 @@ import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.databinding.ActivitySplashBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
+import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.login.LoginActivity
 import com.tom.baseandroid.ui.main.MainActivity
+import com.tom.baseandroid.ui.tutorial.TutorialActivity
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     @Inject
-    lateinit var pref: IConfigurationPrefs
-
+    lateinit var prefs: IConfigurationPrefs
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
     }
@@ -25,12 +27,20 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun initView() {
         binding.ivLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in).apply {
-            duration =  2_000
+            duration = 2_000
         })
         Handler(Looper.getMainLooper()).postDelayed({
-            if (pref.user == null) lauchActivity<LoginActivity> { } else lauchActivity<MainActivity> { }
+            when {
+                prefs.isFirstUseApp -> {
+                    lauchActivity<TutorialActivity> { }
+                }
+                prefs.user != null -> {
+                    lauchActivity<MainActivity> { }
+                }
+                else -> lauchActivity<LoginActivity> { }
+            }
         }, 2_000)
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_splash
-}
+}   

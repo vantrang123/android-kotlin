@@ -5,6 +5,7 @@ import com.tom.baseandroid.ui.EmptyActivity
 import com.tom.baseandroid.ui.login.LoginActivity
 import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.ui.splash.SplashActivity
+import com.tom.baseandroid.ui.tutorial.TutorialActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -24,4 +25,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract fun contributesEmptyActivity(): EmptyActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract fun contributesTutorialActivity(): TutorialActivity
 }

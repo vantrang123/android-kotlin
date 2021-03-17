@@ -39,8 +39,8 @@ class LoadingProgress(context: Context) : Dialog(context, R.style.ProgressDialog
         super.dismiss()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        dismiss()
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        dismiss()
+//    }
 }

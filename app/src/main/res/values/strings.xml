@@ -19,4 +19,7 @@
     <string name="countries_title">main title</string>
     <string name="login_title">login title</string>
     <string name="sign_up_title">sign up title</string>
+
+    // tutorial
+    <string name="start_now">Start Now!</string>
 </resources>

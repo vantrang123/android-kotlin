@@ -8,6 +8,7 @@ import com.tom.baseandroid.di.factory.ViewModelFactory
 import com.tom.baseandroid.ui.login.LoginViewModel
 import com.tom.baseandroid.ui.main.MainViewModel
 import com.tom.baseandroid.ui.splash.SplashViewModel
+import com.tom.baseandroid.ui.tutorial.TutorialViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -36,4 +37,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EmptyViewModel::class)
     internal abstract fun providesEmptyViewModel(viewModel: EmptyViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TutorialViewModel::class)
+    internal abstract fun providesTutorialViewModel(viewModel: TutorialViewModel): ViewModel
 }
