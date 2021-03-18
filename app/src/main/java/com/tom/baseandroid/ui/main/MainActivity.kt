@@ -1,5 +1,9 @@
 package com.tom.baseandroid.ui.main
 
+import android.view.View
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.base.EmptyViewModel
@@ -21,13 +25,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
 
     override fun initView() {
         setupViewPager()
+        changeStatusBarColor(R.color.transparent)
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_main
 
     private fun setupViewPager() {
         viewPager.apply viewPager@{
-            setPagingEnable(true)
+            setPagingEnable(false)
             mAdapter = MainViewpagerAdapter(this@MainActivity, supportFragmentManager)
             adapter = mAdapter
             offscreenPageLimit = 5
@@ -37,6 +42,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
                     getTabAt(i)?.customView = mAdapter?.getTabView(i)
                 }
             }
+            addOnPageChangeListener(
+                object : ViewPager.OnPageChangeListener {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {}
+
+                    override fun onPageSelected(position: Int) {
+                        changeStatusBarColor(if (position == 0) R.color.transparent else R.color.blue_light)
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {}
+
+                }
+            )
+        }
+    }
+
+    private fun changeStatusBarColor(color: Int) {
+        window?.apply {
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            statusBarColor =
+                ContextCompat.getColor(this@MainActivity, color)
         }
     }
 

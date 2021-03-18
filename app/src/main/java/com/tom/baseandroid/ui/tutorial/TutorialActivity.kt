@@ -1,7 +1,10 @@
 package com.tom.baseandroid.ui.tutorial
 
 import android.animation.ObjectAnimator
+import android.view.View
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.base.IActivity
@@ -12,11 +15,9 @@ import com.tom.baseandroid.extensions.dp
 import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
-import com.tom.baseandroid.ui.player.PlayerActivity
+import com.tom.baseandroid.ui.main.MainActivity
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
-import com.zhpan.bannerview.constants.IndicatorSlideMode
-import com.zhpan.bannerview.holder.HolderCreator
+import com.zhpan.indicator.enums.IndicatorSlideMode
 import kotlinx.android.synthetic.main.activity_tutorial.*
 import java.util.ArrayList
 import javax.inject.Inject
@@ -48,6 +49,13 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
     override fun getViewModelClass(): Class<TutorialViewModel> = TutorialViewModel::class.java
 
     override fun initView() {
+        window?.apply {
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            statusBarColor =
+                ContextCompat.getColor(this@TutorialActivity, R.color.transparent)
+        }
         getDrawables()
         setUpViewPager()
     }
@@ -56,7 +64,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
 
     override fun navigation() {
         prefs.isFirstUseApp = false
-        lauchActivity<PlayerActivity> { }
+        lauchActivity<MainActivity> { }
     }
 
     private fun getDrawables() {
@@ -72,22 +80,22 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
             setAutoPlay(false)
             setCanLoop(false)
             setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-            setIndicatorRadius(3.dp, 4.dp)
+            setIndicatorSliderRadius(3.dp, 4.dp)
             setIndicatorMargin(0, 0, 0, 15.dp) // can setMargin here
-            setHolderCreator(HolderCreator { TutorialViewHolder() })
-            setIndicatorColor(ContextCompat.getColor(this@TutorialActivity, R.color.gray_chalice), ContextCompat.getColor(this@TutorialActivity, R.color.blue_light))
-            setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
+            setAdapter(TutorialAdapter())
+            setIndicatorSliderColor(ContextCompat.getColor(this@TutorialActivity, R.color.gray_chalice), ContextCompat.getColor(this@TutorialActivity, R.color.blue_light))
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     btnStart.apply {
                         visible(position == 2)
                         ObjectAnimator
-                                .ofFloat(this, "alpha", 0f, 1f)
-                                .setDuration(ANIMATION_DURATION.toLong()).start()
+                            .ofFloat(this, "alpha", 0f, 1f)
+                            .setDuration(ANIMATION_DURATION.toLong()).start()
                     }
                 }
             })
-            create(data)
+            create(this@TutorialActivity.data)
         }
 
         btnStart.setOnClickListener { navigation() }

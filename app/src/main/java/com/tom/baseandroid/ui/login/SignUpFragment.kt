@@ -10,7 +10,7 @@ import com.tom.baseandroid.databinding.FragmentSignUpBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.preference.IConfigurationPrefs
-import com.tom.baseandroid.ui.player.PlayerActivity
+import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.utils.Utils.hideKeyboard
 import javax.inject.Inject
 
@@ -55,7 +55,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, EmptyViewModel>() {
         super.initViewModel()
         getParentViewModel()?.signUpResult?.observe(viewLifecycleOwner, Observer {
             if (it) {
-                requireActivity().lauchActivity<PlayerActivity> {  }
+                requireActivity().lauchActivity<MainActivity> {  }
                 requireActivity().finish()
             }
         })

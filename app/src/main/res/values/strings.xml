@@ -34,4 +34,25 @@
 
     // search
     <string name="hint_search">Search</string>
+
+
+    // temp
+    <string name="temp">"We have a simple form in a Shopping app where you need to input your name, mobile number, address and click on the Submit button in order to get the item delivered at your doorstep.
+Let's assume that the two images above represent two different applications available on Google Play Store and you have downloaded both of them. As an end user, which of the two applications would you use?
+As per one of the statistics:
+88% of online shoppers say they wouldn’t return to a website after having a bad user experience.
+Yes, you read that right! Having a good user experience on any of the platforms, either mobile or web is one of the most important factors which will help you get more user base for your application. Also, having a well designed UI plays a crucial role to achieve it. No matter how good your code is, if your UI looks like image ‘1’, you will never have people using your application.
+This is exactly where Google’s material design comes to your rescue!
+From Android perspective, Material design library provides us with most of the components that have been designed keeping in mind all the essential guidelines. Also, they are readily available to be used and most importantly, they are highly customisable.
+Here you can find all the components supported by Material design library for Android. They have been beautifully categorised and are pretty well documented to use as per requirement.
+For this article, we will be focusing mainly on the Material Design’s Dialog component.
+What is a dialog?
+As per Android’s official documentation:
+A dialog is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they can proceed.
+Material design provides a wide variety of readily available dialogs such as:
+Alert Dialog
+Simple Dialog
+Confirmation Dialog
+Full-screen Dialog
+But, what if we need to design this:"</string>
 </resources>

@@ -10,7 +10,7 @@ import com.tom.baseandroid.databinding.FragmentLoginBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.preference.IConfigurationPrefs
-import com.tom.baseandroid.ui.player.PlayerActivity
+import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.utils.Utils.hideKeyboard
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
@@ -62,7 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, EmptyViewModel>() {
         super.initViewModel()
         getParentViewModel()?.loginResult?.observe(viewLifecycleOwner, Observer {
             if (it) {
-                requireActivity().lauchActivity<PlayerActivity> { }
+                requireActivity().lauchActivity<MainActivity> { }
                 requireActivity().finish()
             }
         })

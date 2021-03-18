@@ -19,7 +19,8 @@ ext {
     def socket_version = "0.6.0"
     def firebase_analytics_version = "17.2.2"
     def firebase_messaging_version = "20.1.0"
-    def banner_version = "2.6.6"
+//    def banner_version = "3.0.0"
+    def indicator_version = "1.1.0"
 
     // retrofit
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -77,5 +78,6 @@ ext {
     socket = "com.github.nkzawa:socket.io-client:$socket_version"
 
     //banner
-    banner = "com.zhpan.library:bannerview:$banner_version"
+//    banner = "com.github.zhpanvip:BannerViewPager:$banner_version"
+    indicator = "com.github.zhpanvip:viewpagerindicator:$indicator_version"
 }

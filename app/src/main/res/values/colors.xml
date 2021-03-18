@@ -16,6 +16,7 @@
     <color name="defaultBackgroundColor">#f7fcff</color>
     <color name="blue_light">#08BAF0</color>
     <color name="gray_chalice">#A0A0A0</color>
-    <color name="color_grey_abbey">#585A60</color>
-    <color name="color_gray">#F4F4F4</color>
+    <color name="grey_abbey">#585A60</color>
+    <color name="gray">#F4F4F4</color>
+    <color name="transparent">#00ffffff</color>
 </resources>
