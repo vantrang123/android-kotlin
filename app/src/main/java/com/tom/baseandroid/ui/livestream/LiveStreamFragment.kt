@@ -1,4 +1,4 @@
-package com.tom.baseandroid.ui.home
+package com.tom.baseandroid.ui.livestream
 
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
@@ -9,7 +9,7 @@ import com.tom.baseandroid.di.injectViewModel
 /**
  *Created by VanTrang.
  */
-class NotificationFragment : BaseFragment<FragmentHomeBinding , EmptyViewModel>() {
+class LiveStreamFragment : BaseFragment<FragmentHomeBinding , EmptyViewModel>() {
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
     }
@@ -19,5 +19,5 @@ class NotificationFragment : BaseFragment<FragmentHomeBinding , EmptyViewModel>(
     override fun initView() {
     }
 
-    override fun getLayoutResourceId(): Int = R.layout.fragment_notification
+    override fun getLayoutResourceId(): Int = R.layout.fragment_live_stream
 }

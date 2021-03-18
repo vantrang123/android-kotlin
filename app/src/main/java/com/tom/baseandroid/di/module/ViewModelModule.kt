@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.di.ViewModelKey
 import com.tom.baseandroid.di.factory.ViewModelFactory
+import com.tom.baseandroid.ui.home.HomeViewModel
 import com.tom.baseandroid.ui.login.LoginViewModel
 import com.tom.baseandroid.ui.player.PlayerViewModel
 import com.tom.baseandroid.ui.splash.SplashViewModel
@@ -42,4 +43,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TutorialViewModel::class)
     internal abstract fun providesTutorialViewModel(viewModel: TutorialViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    internal abstract fun providesHomeViewModel(viewModel: HomeViewModel): ViewModel
 }

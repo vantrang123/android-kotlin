@@ -3,6 +3,7 @@ package com.tom.baseandroid.di.module
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.tom.baseandroid.BuildConfig
 import com.tom.baseandroid.R
 import com.tom.baseandroid.data.model.BaseConfig
 import com.tom.baseandroid.data.network.NoConnectionException
@@ -42,42 +43,51 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor, context: Context, prefs: IConfigurationPrefs): OkHttpClient {
+    fun provideOkhttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        context: Context,
+        prefs: IConfigurationPrefs
+    ): OkHttpClient {
         return OkHttpClient()
-                .newBuilder()
-                .protocols(listOf(Protocol.HTTP_1_1))
-                .connectTimeout(45L, TimeUnit.SECONDS)
-                .writeTimeout(45L, TimeUnit.SECONDS)
-                .readTimeout(45L, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)
-                .addInterceptor {
-                    if (!isConnected(context))
-                        throw NoConnectionException(
-                                context.getString(R.string.no_network)
-                        )
-                    val request = it.request()
-                    val builder = request.newBuilder()
-                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                            .addHeader("Content-Language", prefs.language)
-                    prefs.apiToken?.let { accessToken ->
-                        builder.addHeader(
-                                "Authorization",
-                                "${Constants.KEY_BEARER} $accessToken"
-                        )
-                    }
-                    it.proceed(builder.build())
+            .newBuilder()
+            .protocols(listOf(Protocol.HTTP_1_1))
+            .connectTimeout(45L, TimeUnit.SECONDS)
+            .writeTimeout(45L, TimeUnit.SECONDS)
+            .readTimeout(45L, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .addInterceptor {
+                if (!isConnected(context))
+                    throw NoConnectionException(
+                        context.getString(R.string.no_network)
+                    )
+                val request = it.request()
+                val builder = request.newBuilder()
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("Content-Language", prefs.language)
+                    .addHeader(
+                        "x-rapidapi-key",
+                        BuildConfig.RAPIDAPIKEY
+                    )
+                    .addHeader("x-rapidapi-host", "shopee.p.rapidapi.com")
+                prefs.apiToken?.let { accessToken ->
+                    builder.addHeader(
+                        "Authorization",
+                        "${Constants.KEY_BEARER} $accessToken"
+                    )
                 }
-                .addInterceptor(loggingInterceptor)
-                .build()
+                it.proceed(builder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .build()
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(baseConfig: BaseConfig, okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder().baseUrl(baseConfig.endPoint)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okHttpClient)
-                .build()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
+            .build()
     }
 }

@@ -50,6 +50,7 @@ android {
         dev {
             dimension "version"
             buildConfigField "String", "BASE_URL", properties.getProperty("baseUrlDev")
+            buildConfigField "String", "RAPIDAPIKEY", properties.getProperty("rapidapiKey")
         }
 
         staging {
@@ -75,7 +76,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation project(path: ':bannerview')
 
     implementation koinAndroid
     implementation koinAndroidScope
@@ -107,6 +107,6 @@ dependencies {
     implementation socket
     implementation firebaseMessaging
     implementation firebaseAnalytics
-//    implementation banner
+    implementation banner
     implementation indicator
 }

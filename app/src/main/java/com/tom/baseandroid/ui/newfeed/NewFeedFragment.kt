@@ -1,8 +1,5 @@
-package com.tom.baseandroid.ui.home
+package com.tom.baseandroid.ui.newfeed
 
-import android.view.View
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
 import com.tom.baseandroid.base.EmptyViewModel

@@ -10,6 +10,7 @@ import com.tom.baseandroid.extensions.dp
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.PageStyle
+import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.indicator.DrawableIndicator
 import com.zhpan.indicator.base.IIndicator
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -18,16 +19,18 @@ import java.util.ArrayList
 /**
  *Created by VanTrang.
  */
-class HomeFragment : BaseFragment<FragmentHomeBinding, EmptyViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
+    BannerViewHolder.OnSubViewClickListener {
     private lateinit var mViewPager: BannerViewPager<Banner, BannerViewHolder>
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
     }
 
-    override fun getViewModelClass(): Class<EmptyViewModel> = EmptyViewModel::class.java
+    override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
 
     override fun initView() {
         initBanner()
+        initViewModel()
     }
 
     override fun getLayoutResourceId(): Int = R.layout.fragment_home
@@ -37,11 +40,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, EmptyViewModel>() {
         mViewPager.apply {
             setAutoPlay(true)
             setCanLoop(true)
-            setAdapter(BannerAdapter())
+            setHolderCreator(HolderCreator {
+                BannerViewHolder().apply {
+                    setOnSubViewClickListener(this@HomeFragment)
+                }
+            })
             setIndicatorView(getVectorDrawableIndicator())
-            setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+            setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
             setIndicatorGravity(IndicatorGravity.START)
-            setInterval(2000)
+            setInterval(3000)
             setPageStyle(PageStyle.MULTI_PAGE)
             create(getPicList())
         }
@@ -51,7 +58,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, EmptyViewModel>() {
         val mPictureList: MutableList<Banner> = ArrayList()
         mPictureList.clear()
         for (i in 0..4) {
-            val drawable = resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
+            val drawable =
+                resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
             mPictureList.add(Banner().apply {
                 imageRes = drawable
             })
@@ -61,11 +69,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, EmptyViewModel>() {
 
     private fun getVectorDrawableIndicator(): IIndicator {
         return DrawableIndicator(context)
-                .setIndicatorGap(2.dp)
-                .setIndicatorDrawable(
-                        R.drawable.banner_indicator_nornal,
-                        R.drawable.banner_indicator_focus
-                )
-                .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
+            .setIndicatorGap(3.dp)
+            .setIndicatorDrawable(
+                R.drawable.banner_indicator_nornal,
+                R.drawable.banner_indicator_focus
+            )
+            .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
+        viewModel.apply {
+            getProductsByCategory("40")
+        }
+    }
+
+    override fun onViewClick(position: Int) {
+        snackBar("You clicked $position")
     }
 }

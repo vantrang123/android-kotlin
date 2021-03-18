@@ -8,7 +8,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
+import com.tom.baseandroid.ui.account.AccountFragment
 import com.tom.baseandroid.ui.home.*
+import com.tom.baseandroid.ui.livestream.LiveStreamFragment
+import com.tom.baseandroid.ui.newfeed.NewFeedFragment
+import com.tom.baseandroid.ui.notification.NotificationFragment
 import kotlinx.android.synthetic.main.tab_main.view.*
 
 /**

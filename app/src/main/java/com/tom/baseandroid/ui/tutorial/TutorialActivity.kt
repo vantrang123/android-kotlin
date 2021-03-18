@@ -17,6 +17,8 @@ import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.ui.main.MainActivity
 import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
+import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import kotlinx.android.synthetic.main.activity_tutorial.*
 import java.util.ArrayList
@@ -82,16 +84,17 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
             setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
             setIndicatorSliderRadius(3.dp, 4.dp)
             setIndicatorMargin(0, 0, 0, 15.dp) // can setMargin here
-            setAdapter(TutorialAdapter())
+//            setAdapter(TutorialAdapter())
+            setHolderCreator(HolderCreator { TutorialViewHolder() })
             setIndicatorSliderColor(ContextCompat.getColor(this@TutorialActivity, R.color.gray_chalice), ContextCompat.getColor(this@TutorialActivity, R.color.blue_light))
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     btnStart.apply {
                         visible(position == 2)
                         ObjectAnimator
-                            .ofFloat(this, "alpha", 0f, 1f)
-                            .setDuration(ANIMATION_DURATION.toLong()).start()
+                                .ofFloat(this, "alpha", 0f, 1f)
+                                .setDuration(ANIMATION_DURATION.toLong()).start()
                     }
                 }
             })

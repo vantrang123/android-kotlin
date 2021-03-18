@@ -1,4 +1,4 @@
-package com.tom.baseandroid.ui.home
+package com.tom.baseandroid.ui.account
 
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment

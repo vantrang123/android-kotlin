@@ -11,7 +11,7 @@ class PlayerRepository @Inject constructor(
     private val dbService: DbService
 ) {
 
-    suspend fun observerPlayers() = remote.getAllPlayers()
+//    suspend fun observerPlayers() = remote.getAllPlayers()
 
     suspend fun observePlayerByUUID(id: String) = dbService.getPlayer(playerId = id)
 }

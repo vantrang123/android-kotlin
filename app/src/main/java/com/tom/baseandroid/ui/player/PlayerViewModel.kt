@@ -25,13 +25,13 @@ class PlayerViewModel @Inject constructor(
     fun getListPlayers() {
         viewModelScope.launch(main) {
             try {
-                isLoading.postValue(true)
-                val result = withContext(io) { async { repository.observerPlayers() } }
-                result.await().apply {
-                    _players.postValue(body())
-                    isLoading.postValue(false)
-                    if (body() != null) dbService.saveAll(body()!!)
-                }
+//                isLoading.postValue(true)
+//                val result = withContext(io) { async { repository.observerPlayers() } }
+//                result.await().apply {
+//                    _players.postValue(body())
+//                    isLoading.postValue(false)
+//                    if (body() != null) dbService.saveAll(body()!!)
+//                }
             } catch (e: Exception) {
                 handleError(e.message)
             }
