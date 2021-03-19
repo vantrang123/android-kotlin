@@ -1,5 +1,8 @@
 package com.tom.baseandroid.ui.home
 
+import android.os.Handler
+import android.os.Looper
+import androidx.lifecycle.Observer
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
 import com.tom.baseandroid.base.EmptyViewModel
@@ -14,13 +17,14 @@ import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.indicator.DrawableIndicator
 import com.zhpan.indicator.base.IIndicator
 import com.zhpan.indicator.enums.IndicatorSlideMode
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.ArrayList
 
 /**
  *Created by VanTrang.
  */
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    BannerViewHolder.OnSubViewClickListener {
+        BannerViewHolder.OnSubViewClickListener {
     private lateinit var mViewPager: BannerViewPager<Banner, BannerViewHolder>
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
@@ -31,6 +35,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun initView() {
         initBanner()
         initViewModel()
+        viewCategory.initView()
+        swipeRefresh?.setOnRefreshListener {
+            viewModel.getCategories()
+            Handler(Looper.getMainLooper()).postDelayed({
+                swipeRefresh?.isRefreshing = false
+            }, 1000)
+        }
     }
 
     override fun getLayoutResourceId(): Int = R.layout.fragment_home
@@ -59,7 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         mPictureList.clear()
         for (i in 0..4) {
             val drawable =
-                resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
+                    resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
             mPictureList.add(Banner().apply {
                 imageRes = drawable
             })
@@ -69,18 +80,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     private fun getVectorDrawableIndicator(): IIndicator {
         return DrawableIndicator(context)
-            .setIndicatorGap(3.dp)
-            .setIndicatorDrawable(
-                R.drawable.banner_indicator_nornal,
-                R.drawable.banner_indicator_focus
-            )
-            .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
+                .setIndicatorGap(3.dp)
+                .setIndicatorDrawable(
+                        R.drawable.banner_indicator_nornal,
+                        R.drawable.banner_indicator_focus
+                )
+                .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
     }
 
     override fun initViewModel() {
         super.initViewModel()
         viewModel.apply {
-            getProductsByCategory("40")
+            getCategories()
+            categories.observe(viewLifecycleOwner, Observer {
+                viewCategory.onDataChange(it)
+            })
         }
     }
 

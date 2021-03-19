@@ -21,6 +21,7 @@ ext {
     def firebase_messaging_version = "20.1.0"
     def banner_version = "2.7.4"
     def indicator_version = "1.1.0"
+    def circle_version = "3.1.0"
 
     // retrofit
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -77,7 +78,10 @@ ext {
     // socket.IO
     socket = "com.github.nkzawa:socket.io-client:$socket_version"
 
-    //banner
+    // banner
     banner = "com.github.zhpanvip:BannerViewPager:$banner_version"
     indicator = "com.github.zhpanvip:viewpagerindicator:$indicator_version"
+
+    // circle
+    circle = "de.hdodenhof:circleimageview:$circle_version"
 }

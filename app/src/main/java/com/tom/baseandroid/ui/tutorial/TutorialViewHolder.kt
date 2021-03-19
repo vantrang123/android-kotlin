@@ -5,10 +5,10 @@ import android.view.View
 import com.tom.baseandroid.R
 import com.tom.baseandroid.data.model.Tutorial
 import com.zhpan.bannerview.holder.ViewHolder
-import kotlinx.android.synthetic.main.item_tutorial_view.view.*
+import kotlinx.android.synthetic.main.item_tutorial.view.*
 
 class TutorialViewHolder : ViewHolder<Tutorial> {
-    override fun getLayoutId(): Int = R.layout.item_tutorial_view
+    override fun getLayoutId(): Int = R.layout.item_tutorial
 
     override fun onBind(itemView: View?, data: Tutorial?, position: Int, size: Int) {
         itemView?.apply {

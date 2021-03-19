@@ -23,5 +23,6 @@ object Constants {
 
     /*API*/
     const val API_PRODUCTS_BY_CATEGORY = "${BASE_URL}category/{category_id}/list-items"
+    const val API_CATEGORIES = "${BASE_URL}list-all-categories"
 
 }

@@ -4,17 +4,23 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.tom.baseandroid.BuildConfig
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.databinding.ActivityMainBinding
 import com.tom.baseandroid.di.injectViewModel
+import com.tom.baseandroid.preference.IConfigurationPrefs
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 /**
  *Created by VanTrang on 8/22/2019.
  */
 class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
+    @Inject
+    lateinit var prefs: IConfigurationPrefs
+    
     private var mAdapter: MainViewpagerAdapter? = null
 
     override fun injectViewModel() {
@@ -24,8 +30,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
     override fun getViewModelClass(): Class<EmptyViewModel> = EmptyViewModel::class.java
 
     override fun initView() {
+        prefs.apiToken = BuildConfig.APIKEY
         setupViewPager()
         changeStatusBarColor(R.color.transparent)
+        initViewModel()
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_main
