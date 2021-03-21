@@ -1,4 +1,5 @@
 ## file local.properties
-baseUrlDev = "https://xapi-player.herokuapp.com/"
+baseUrlDev = "https://shopee.p.rapidapi.com/shopee.com.br/"
 baseUrlStaging = ""
 baseUrlProd = ""
+apiKey = ""
