@@ -1,5 +1,6 @@
 ## file local.properties
-baseUrlDev = "https://shopee.p.rapidapi.com/shopee.com.br/"
+baseUrlDevMalaysia = "https://shopee.p.rapidapi.com/shopee.co.id/"
+baseUrlDevThailand = "https://shopeethailand.p.rapidapi.com/api/"
 baseUrlStaging = ""
 baseUrlProd = ""
-apiKey = "b600652b0bmsh67792b30bf1533ap1e5ba3jsn76f733d2e328"
+apiKey = ""
