@@ -24,7 +24,7 @@ import java.util.ArrayList
  *Created by VanTrang.
  */
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-        BannerViewHolder.OnSubViewClickListener {
+    BannerViewHolder.OnSubViewClickListener {
     private lateinit var mViewPager: BannerViewPager<Banner, BannerViewHolder>
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         mPictureList.clear()
         for (i in 0..4) {
             val drawable =
-                    resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
+                resources.getIdentifier("advertise$i", "drawable", requireContext().packageName)
             mPictureList.add(Banner().apply {
                 imageRes = drawable
             })
@@ -80,12 +80,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     private fun getVectorDrawableIndicator(): IIndicator {
         return DrawableIndicator(context)
-                .setIndicatorGap(3.dp)
-                .setIndicatorDrawable(
-                        R.drawable.banner_indicator_nornal,
-                        R.drawable.banner_indicator_focus
-                )
-                .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
+            .setIndicatorGap(3.dp)
+            .setIndicatorDrawable(
+                R.drawable.banner_indicator_nornal,
+                R.drawable.banner_indicator_focus
+            )
+            .setIndicatorSize(7.dp, 2.dp, 7.dp, 7.dp)
     }
 
     override fun initViewModel() {
@@ -93,6 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         viewModel.apply {
             getCategories()
             categories.observe(viewLifecycleOwner, Observer {
+                getProducts()
                 viewCategory.onDataChange(it)
             })
         }

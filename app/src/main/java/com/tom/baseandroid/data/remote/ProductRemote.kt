@@ -7,4 +7,5 @@ import javax.inject.Inject
  */
 class ProductRemote @Inject constructor(private val service: Service) {
     suspend fun getProductsByCategory(categoryId: String) = service.getProductsByCategory(categoryId)
+    suspend fun getProducts() = service.getProducts()
 }

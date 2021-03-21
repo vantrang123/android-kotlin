@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_categoty.view.*
  *Created by VanTrang.
  */
 class CategoryAdapter : BaseAdapter() {
-    private val mCategories: MutableList<Data.Category> = mutableListOf()
+    private val mData: MutableList<Data.Category> = mutableListOf()
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -28,10 +28,10 @@ class CategoryAdapter : BaseAdapter() {
     }
 
     override fun onBindHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        mCategories[position].let { (holder as CategoryViewHolder).bind(it) }
+        mData[position].let { (holder as CategoryViewHolder).bind(it) }
     }
 
-    override fun getItemCount(): Int = mCategories.size.getDefault()
+    override fun getItemCount(): Int = mData.size.getDefault()
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(value: Data.Category) {
@@ -48,8 +48,8 @@ class CategoryAdapter : BaseAdapter() {
     }
 
     fun updateData(data: MutableList<Data.Category>) {
-        mCategories.clear()
-        mCategories.addAll(data)
+        mData.clear()
+        mData.addAll(data)
         notifyDataSetChanged()
     }
 }

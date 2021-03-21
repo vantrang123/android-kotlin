@@ -11,6 +11,7 @@ import com.tom.baseandroid.data.remote.Service
 import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.utils.Constants
 import com.tom.baseandroid.utils.NetworkUtil.Companion.isConnected
+import com.tom.baseandroid.utils.Utils.isApiThailand
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -65,10 +66,14 @@ class NetworkModule {
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .addHeader("Content-Language", prefs.language)
                     .addHeader(
-                        "x-rapidapi-key",
-                        BuildConfig.APIKEY
+                        "x-rapidapi-key", if (isApiThailand)
+                            "c0061c491dmsh725901c56c1bde6p16fa16jsnc4c63dbf4193" else
+                            "b600652b0bmsh67792b30bf1533ap1e5ba3jsn76f733d2e328"
                     )
-                    .addHeader("x-rapidapi-host", "shopee.p.rapidapi.com")
+                    .addHeader(
+                        "x-rapidapi-host",
+                        if (isApiThailand) "shopeethailand.p.rapidapi.com" else "shopee.p.rapidapi.com"
+                    )
                 prefs.apiToken?.let { accessToken ->
                     builder.addHeader(
                         "Authorization",

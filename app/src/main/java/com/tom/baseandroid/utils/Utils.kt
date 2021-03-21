@@ -17,4 +17,6 @@ object Utils {
     fun languageDefault() =
             if (Locale.getDefault().language != "en" && Locale.getDefault().language != "vn") "en"
             else Locale.getDefault().language
+
+    var isApiThailand: Boolean = false
 }

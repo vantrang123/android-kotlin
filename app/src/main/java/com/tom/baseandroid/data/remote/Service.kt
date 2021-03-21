@@ -17,4 +17,9 @@ interface Service {
 
     @GET(Constants.API_CATEGORIES)
     suspend fun getCategories(): BaseResponse<Data>
+
+    @GET(Constants.API_PRODUCTS)
+    suspend fun getProducts(
+        @Query("limit") limit: Int = Constants.LIMIT_ITEM_PAGE
+    ): BaseResponse<MutableList<Product>>
 }

@@ -8,13 +8,15 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.tom.baseandroid.ui.utils.LoadingProgress
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<B : ViewDataBinding, V: ViewModel> : DaggerFragment() {
+abstract class BaseFragment<B : ViewDataBinding, V: BaseViewModel> : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -62,5 +64,11 @@ abstract class BaseFragment<B : ViewDataBinding, V: ViewModel> : DaggerFragment(
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    open fun initViewModel() {}
+    open fun initViewModel() {
+        viewModel.apply {
+            error.observe(requireActivity(), Observer {
+                snackBar(it.message)
+            })
+        }
+    }
 }

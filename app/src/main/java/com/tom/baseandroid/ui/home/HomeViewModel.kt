@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.tom.baseandroid.base.BaseViewModel
 import com.tom.baseandroid.data.model.Data
 import com.tom.baseandroid.data.model.ErrorMessage
+import com.tom.baseandroid.data.model.Product
 import com.tom.baseandroid.data.repository.CategoryRepository
 import com.tom.baseandroid.data.repository.ProductRepository
+import com.tom.baseandroid.utils.Utils.isApiThailand
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -24,22 +26,28 @@ class HomeViewModel @Inject constructor(
     private val _categories = MutableLiveData<MutableList<Data.Category>>()
     val categories: LiveData<MutableList<Data.Category>> get() = _categories
 
+    private val _products = MutableLiveData<MutableList<Product>>()
+    val products: LiveData<MutableList<Product>> get() = _products
 
-    fun getProducts(categoryId: String) {
-//        viewModelScope.launch(main) {
-//            try {
-//                isLoading.postValue(true)
-//                val result = withContext(io) { async { productRepo.observerProducts(categoryId) } }
-//                result.await().apply {
-//                    isLoading.postValue(false)
-//                }
-//            } catch (e: Exception) {
-//                handleError(e.message)
-//            }
-//        }
+
+    fun getProducts() {
+        isApiThailand = true
+        viewModelScope.launch(main) {
+            try {
+                isLoading.postValue(true)
+                val result = withContext(io) { async { productRepo.observerProducts() } }
+                result.await().apply {
+                    isLoading.postValue(false)
+                    _products.postValue(data)
+                }
+            } catch (e: Exception) {
+                handleError(e.message)
+            }
+        }
     }
 
     fun getCategories() {
+        isApiThailand = false
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
