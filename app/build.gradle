@@ -49,8 +49,9 @@ android {
     productFlavors {
         dev {
             dimension "version"
-            buildConfigField "String", "BASE_URL", properties.getProperty("baseUrlDev")
-            buildConfigField "String", "RAPIDAPIKEY", properties.getProperty("rapidapiKey")
+            buildConfigField "String", "BASE_URL_MALAYSIA", properties.getProperty("baseUrlDevMalaysia")
+            buildConfigField "String", "BASE_URL_THAILAND", properties.getProperty("baseUrlDevThailand")
+            buildConfigField "String", "RAPIDAPIKEY", properties.getProperty("apiKey")
         }
 
         staging {

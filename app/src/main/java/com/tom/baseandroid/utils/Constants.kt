@@ -18,10 +18,11 @@ object Constants {
     const val SOCKET_URL = BuildConfig.BASE_URL
     const val KEY_BEARER = "Bearer"
 
-    private const val BASE_URL = BuildConfig.BASE_URL
+    private const val BASE_URL_MALAYSIA = BuildConfig.BASE_URL_MALAYSIA
+    private const val BASE_URL_THAILAND = BuildConfig.BASE_URL_THAILAND
     const val LIMIT_ITEM_PAGE = 10
 
     /*API*/
-    const val API_PRODUCTS_BY_CATEGORY = "${BASE_URL}category/{category_id}/list-items"
+    const val API_PRODUCTS_BY_CATEGORY = "${BASE_URL_MALAYSIA}category/{category_id}/list-items"
 
 }
