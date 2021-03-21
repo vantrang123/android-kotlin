@@ -7,11 +7,9 @@ import com.tom.baseandroid.BuildConfig
 import com.tom.baseandroid.R
 import com.tom.baseandroid.data.model.BaseConfig
 import com.tom.baseandroid.data.network.NoConnectionException
-import com.tom.baseandroid.data.remote.Service
 import com.tom.baseandroid.preference.IConfigurationPrefs
 import com.tom.baseandroid.utils.Constants
 import com.tom.baseandroid.utils.NetworkUtil.Companion.isConnected
-import com.tom.baseandroid.utils.Utils.isApiThailand
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -20,7 +18,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,54 +42,53 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkhttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        context: Context,
-        prefs: IConfigurationPrefs
+            loggingInterceptor: HttpLoggingInterceptor,
+            context: Context,
+            prefs: IConfigurationPrefs
     ): OkHttpClient {
         return OkHttpClient()
-            .newBuilder()
-            .protocols(listOf(Protocol.HTTP_1_1))
-            .connectTimeout(45L, TimeUnit.SECONDS)
-            .writeTimeout(45L, TimeUnit.SECONDS)
-            .readTimeout(45L, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(true)
-            .addInterceptor {
-                if (!isConnected(context))
-                    throw NoConnectionException(
-                        context.getString(R.string.no_network)
-                    )
-                val request = it.request()
-                val builder = request.newBuilder()
-                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("Content-Language", prefs.language)
-                    .addHeader(
-                        "x-rapidapi-key", if (isApiThailand)
-                            "c0061c491dmsh725901c56c1bde6p16fa16jsnc4c63dbf4193" else
-                            "b600652b0bmsh67792b30bf1533ap1e5ba3jsn76f733d2e328"
-                    )
-                    .addHeader(
-                        "x-rapidapi-host",
-                        if (isApiThailand) "shopeethailand.p.rapidapi.com" else "shopee.p.rapidapi.com"
-                    )
-                prefs.apiToken?.let { accessToken ->
-                    builder.addHeader(
-                        "Authorization",
-                        "${Constants.KEY_BEARER} $accessToken"
-                    )
+                .newBuilder()
+                .protocols(listOf(Protocol.HTTP_1_1))
+                .connectTimeout(45L, TimeUnit.SECONDS)
+                .writeTimeout(45L, TimeUnit.SECONDS)
+                .readTimeout(45L, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .addInterceptor {
+                    if (!isConnected(context))
+                        throw NoConnectionException(
+                                context.getString(R.string.no_network)
+                        )
+                    val request = it.request()
+                    val builder = request.newBuilder()
+                            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                            .addHeader("Content-Language", prefs.language)
+                            .addHeader(
+                                    "x-rapidapi-key",
+                                    BuildConfig.APIKEY
+                            )
+                            .addHeader(
+                                    "x-rapidapi-host",
+                                    "shopee.p.rapidapi.com"
+                            )
+                    prefs.apiToken?.let { accessToken ->
+                        builder.addHeader(
+                                "Authorization",
+                                "${Constants.KEY_BEARER} $accessToken"
+                        )
+                    }
+                    it.proceed(builder.build())
                 }
-                it.proceed(builder.build())
-            }
-            .addInterceptor(loggingInterceptor)
-            .build()
+                .addInterceptor(loggingInterceptor)
+                .build()
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(baseConfig: BaseConfig, okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder().baseUrl(baseConfig.endPoint)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okHttpClient)
-            .build()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .build()
     }
 }

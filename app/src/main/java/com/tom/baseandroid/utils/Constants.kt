@@ -16,16 +16,14 @@ object Constants {
     const val ON_TRACKING_STAFF_LOCATION = "TRACKING_STAFF_LOCATION"
 
     const val SOCKET_URL = ""
-    const val BASE_URL = ""
     const val KEY_BEARER = "Bearer"
 
-    private const val BASE_URL_MALAYSIA = BuildConfig.BASE_URL_MALAYSIA
-    private const val BASE_URL_THAILAND = BuildConfig.BASE_URL_THAILAND
+    private const val BASE_URL = BuildConfig.BASE_URL
+//    private const val BASE_URL_THAILAND = BuildConfig.BASE_URL_THAILAND
     const val LIMIT_ITEM_PAGE = 10
 
     /*API*/
-    const val API_CATEGORIES = "${BASE_URL_MALAYSIA}list-all-categories"
-    const val API_PRODUCTS_BY_CATEGORY = "${BASE_URL_MALAYSIA}category/{category_id}/list-items"
-    const val API_PRODUCTS = "${BASE_URL_THAILAND}shopee"
+    const val API_CATEGORIES = "${BASE_URL}list-all-categories"
+    const val API_PRODUCTS_BY_SHOP = "${BASE_URL}shop/{shop_id}/list-items"
 
 }

@@ -6,21 +6,87 @@
     <data>
         <variable
             name="product"
-            type="com.tom.baseandroid.data.model.Product" />
+            type="com.tom.baseandroid.data.model.DataProduct.Product" />
+
+        <variable
+            name="image"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="@dimen/dp_1"
+        android:layout_margin="@dimen/dp_5">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivImageProduct"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_300"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp"
+            app:image="@{image}"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@color/grey_abbey"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/gray_chalice" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="start"
+            android:maxLines="2"
+            android:text="@{product.name}"
+            android:textAlignment="viewStart"
+            android:textColor="@color/grey_abbey"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="@id/ivImageProduct"
+            app:layout_constraintStart_toStartOf="@id/ivImageProduct"
+            app:layout_constraintTop_toBottomOf="@+id/ivImageProduct"
+            tools:text="@string/start_now" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@drawable/bg_discount"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="@string/start_now"
+            tools:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            android:textColor="@color/blue_light"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="@id/tvDiscount"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiscount"
+            app:layout_goneMarginTop="@dimen/dp_5"
+            tools:text="@string/start_now" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            android:textColor="@color/grey_abbey"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="@id/ivImageProduct"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="@string/start_now" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@ import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
 import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.data.model.Banner
+import com.tom.baseandroid.data.model.HomeGroup
 import com.tom.baseandroid.databinding.FragmentHomeBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.dp
@@ -35,7 +36,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun initView() {
         initBanner()
         initViewModel()
-        viewCategory.initView()
+        viewCategory.initView(HomeGroup.CATEGORY)
+        viewSuggestion.initView(HomeGroup.SUGGESTION)
         swipeRefresh?.setOnRefreshListener {
             viewModel.getCategories()
             Handler(Looper.getMainLooper()).postDelayed({
@@ -92,9 +94,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         super.initViewModel()
         viewModel.apply {
             getCategories()
+
             categories.observe(viewLifecycleOwner, Observer {
-                getProducts()
-                viewCategory.onDataChange(it)
+                Handler(Looper.getMainLooper()).postDelayed({ getProducts() }, 1100) // delay cause limit request rapid api
+                viewCategory.onDataChange(it, HomeGroup.CATEGORY)
+            })
+
+            products.observe(viewLifecycleOwner, Observer {
+                viewSuggestion.onDataChange(it, HomeGroup.SUGGESTION)
             })
         }
     }

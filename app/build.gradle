@@ -50,8 +50,8 @@ android {
         dev {
             dimension "version"
             buildConfigField "String", "APIKEY", properties.getProperty("apiKey")
-            buildConfigField "String", "BASE_URL_MALAYSIA", properties.getProperty("baseUrlDevMalaysia")
-            buildConfigField "String", "BASE_URL_THAILAND", properties.getProperty("baseUrlDevThailand")
+            buildConfigField "String", "BASE_URL", properties.getProperty("baseUrlDev")
+//            buildConfigField "String", "BASE_URL_THAILAND", properties.getProperty("baseUrlDevThailand")
         }
 
         staging {

@@ -11,5 +11,5 @@ import javax.inject.Singleton
 class ProductRepository  @Inject constructor(
     private val remote: ProductRemote
 ) {
-    suspend fun observerProducts() = remote.getProducts()
+    suspend fun observerProducts(shopId : String, offset: Int) = remote.getProducts(shopId, offset)
 }

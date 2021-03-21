@@ -38,4 +38,5 @@
     // home
     <string name="view_more">Xem thêm</string>
     <string name="category">Danh mục</string>
+    <string name="suggestion">Gợi ý hôm nay</string>
 </resources>

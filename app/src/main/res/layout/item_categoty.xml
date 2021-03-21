@@ -3,16 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data />
+    <data >
+        <variable
+            name="category"
+            type="com.tom.baseandroid.data.model.DataCategory.Category" />
+
+        <variable
+            name="imageCircle"
+            type="String" />
+    </data>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivImage"
             android:layout_width="@dimen/dp_100"
-            android:layout_height="@dimen/dp_100"/>
+            android:layout_height="@dimen/dp_100"
+            app:image="@{imageCircle}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvName"
@@ -24,6 +33,7 @@
             android:layout_alignEnd="@id/ivImage"
             android:gravity="center"
             android:maxLines="2"
+            android:text="@{category.main.categoryName}"
             android:translationY="-3pt"
             android:textColor="@color/grey_abbey"
             android:textSize="@dimen/sp_14"

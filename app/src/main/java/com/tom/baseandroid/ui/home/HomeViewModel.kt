@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tom.baseandroid.base.BaseViewModel
-import com.tom.baseandroid.data.model.Data
+import com.tom.baseandroid.data.model.DataCategory
+import com.tom.baseandroid.data.model.DataProduct
 import com.tom.baseandroid.data.model.ErrorMessage
-import com.tom.baseandroid.data.model.Product
 import com.tom.baseandroid.data.repository.CategoryRepository
 import com.tom.baseandroid.data.repository.ProductRepository
-import com.tom.baseandroid.utils.Utils.isApiThailand
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -18,27 +17,27 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class HomeViewModel @Inject constructor(
-        private val productRepo: ProductRepository,
-        private val categoryRepo: CategoryRepository,
-        @Named("IO") private val io: CoroutineDispatcher,
-        @Named("MAIN") private val main: CoroutineDispatcher
+    private val productRepo: ProductRepository,
+    private val categoryRepo: CategoryRepository,
+    @Named("IO") private val io: CoroutineDispatcher,
+    @Named("MAIN") private val main: CoroutineDispatcher
 ) : BaseViewModel() {
-    private val _categories = MutableLiveData<MutableList<Data.Category>>()
-    val categories: LiveData<MutableList<Data.Category>> get() = _categories
+    private val _categories = MutableLiveData<MutableList<DataCategory.Category>>()
+    val categories: LiveData<MutableList<DataCategory.Category>> get() = _categories
 
-    private val _products = MutableLiveData<MutableList<Product>>()
-    val products: LiveData<MutableList<Product>> get() = _products
+    private val _products = MutableLiveData<MutableList<DataProduct.Product>>()
+    val products: LiveData<MutableList<DataProduct.Product>> get() = _products
 
 
     fun getProducts() {
-        isApiThailand = true
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
-                val result = withContext(io) { async { productRepo.observerProducts() } }
+                val result =
+                    withContext(io) { async { productRepo.observerProducts("51925611", 0) } }
                 result.await().apply {
                     isLoading.postValue(false)
-                    _products.postValue(data)
+                    _products.postValue(data?.products)
                 }
             } catch (e: Exception) {
                 handleError(e.message)
@@ -47,7 +46,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getCategories() {
-        isApiThailand = false
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)

@@ -50,7 +50,7 @@ class AppModule {
         return BaseConfig(
                 BuildConfig.APPLICATION_ID,
                 Constants.SOCKET_URL,
-                BuildConfig.BASE_URL_MALAYSIA,
+                BuildConfig.BASE_URL,
                 "",
                 context.getString(R.string.app_name)
         )

@@ -1,55 +1,52 @@
 package com.tom.baseandroid.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseAdapter
-import com.tom.baseandroid.data.model.Data
+import com.tom.baseandroid.data.model.DataCategory
+import com.tom.baseandroid.databinding.ItemCategotyBinding
 import com.tom.baseandroid.extensions.getDefault
-import kotlinx.android.synthetic.main.item_categoty.view.*
 
 /**
  *Created by VanTrang.
  */
 class CategoryAdapter : BaseAdapter() {
-    private val mData: MutableList<Data.Category> = mutableListOf()
+    private val mDataCategory: MutableList<DataCategory.Category> = mutableListOf()
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return CategoryViewHolder(
-            LayoutInflater.from(parent.context).inflate(
+        val inflater = LayoutInflater.from(parent.context)
+        val binding =
+            DataBindingUtil.inflate<ItemCategotyBinding>(
+                inflater,
                 R.layout.item_categoty,
                 parent,
                 false
             )
+        return CategoryViewHolder(
+            binding
         )
     }
 
     override fun onBindHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        mData[position].let { (holder as CategoryViewHolder).bind(it) }
+        mDataCategory[position].let { (holder as CategoryViewHolder).bind(it) }
     }
 
-    override fun getItemCount(): Int = mData.size.getDefault()
+    override fun getItemCount(): Int = mDataCategory.size.getDefault()
 
-    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: Data.Category) {
-            with(itemView) {
-                Glide.with(context)
-                    .load(value.main?.imageUrl)
-                    .placeholder(R.color.gray_chalice)
-                    .error(R.color.gray_chalice)
-                    .into(ivImage)
-
-                tvName.text = value.main?.categoryDisplayName
-            }
+    inner class CategoryViewHolder(var binding: ItemCategotyBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(value: DataCategory.Category) = binding.apply {
+            category = value
+            imageCircle = value.main?.imageUrl
         }
     }
 
-    fun updateData(data: MutableList<Data.Category>) {
-        mData.clear()
-        mData.addAll(data)
+    fun updateData(dataCategory: MutableList<DataCategory.Category>) {
+        mDataCategory.clear()
+        mDataCategory.addAll(dataCategory)
         notifyDataSetChanged()
     }
 }

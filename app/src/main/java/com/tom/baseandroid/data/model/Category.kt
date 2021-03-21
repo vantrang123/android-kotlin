@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class Data(
+data class DataCategory(
         val categories: MutableList<Category>? = null
 ) : Parcelable {
     @Parcelize
