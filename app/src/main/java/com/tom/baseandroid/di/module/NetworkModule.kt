@@ -66,7 +66,7 @@ class NetworkModule {
                     .addHeader("Content-Language", prefs.language)
                     .addHeader(
                         "x-rapidapi-key",
-                        BuildConfig.RAPIDAPIKEY
+                        BuildConfig.APIKEY
                     )
                     .addHeader("x-rapidapi-host", "shopee.p.rapidapi.com")
                 prefs.apiToken?.let { accessToken ->

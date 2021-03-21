@@ -9,8 +9,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 class Product(
-    @SerializedName("display_name")
-    val disPlayName: String? = null
+    val name: String? = null
 ) : Parcelable {
 
 }

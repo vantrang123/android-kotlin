@@ -49,9 +49,9 @@ android {
     productFlavors {
         dev {
             dimension "version"
+            buildConfigField "String", "APIKEY", properties.getProperty("apiKey")
             buildConfigField "String", "BASE_URL_MALAYSIA", properties.getProperty("baseUrlDevMalaysia")
             buildConfigField "String", "BASE_URL_THAILAND", properties.getProperty("baseUrlDevThailand")
-            buildConfigField "String", "RAPIDAPIKEY", properties.getProperty("apiKey")
         }
 
         staging {
@@ -73,6 +73,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.google.firebase:firebase-core:18.0.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -110,4 +111,5 @@ dependencies {
     implementation firebaseAnalytics
     implementation banner
     implementation indicator
+    implementation circle
 }

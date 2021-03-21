@@ -15,6 +15,7 @@ import com.tom.baseandroid.extensions.dp
 import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.extensions.visible
 import com.tom.baseandroid.preference.IConfigurationPrefs
+import com.tom.baseandroid.ui.login.LoginActivity
 import com.tom.baseandroid.ui.main.MainActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
@@ -66,7 +67,11 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding, TutorialViewModel
 
     override fun navigation() {
         prefs.isFirstUseApp = false
-        lauchActivity<MainActivity> { }
+        if (prefs.user != null) {
+            lauchActivity<MainActivity> { }
+        } else {
+            lauchActivity<LoginActivity> { }
+        }
     }
 
     private fun getDrawables() {
