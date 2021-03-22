@@ -37,7 +37,7 @@ class MainViewpagerAdapter(
 
     private val imageResId =
         intArrayOf(
-            R.drawable.ic_home,
+            R.color.selector_icon_home,
             R.drawable.ic_new_feed,
             R.drawable.ic_live_steam,
             R.drawable.ic_notifications,
