@@ -1,5 +1,6 @@
 package com.tom.baseandroid.ui.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -28,13 +29,12 @@ class HomeViewModel @Inject constructor(
     private val _products = MutableLiveData<MutableList<DataProduct.Product>>()
     val products: LiveData<MutableList<DataProduct.Product>> get() = _products
 
-
     fun getProducts() {
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
                 val result =
-                    withContext(io) { async { productRepo.observerProducts("51925611", 0) } }
+                    withContext(io) { async { productRepo.observerProducts("221366989", 0) } } /** need change shop id **/
                 result.await().apply {
                     isLoading.postValue(false)
                     _products.postValue(data?.products)

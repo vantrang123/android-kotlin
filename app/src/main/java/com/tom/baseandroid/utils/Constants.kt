@@ -18,8 +18,9 @@ object Constants {
     const val SOCKET_URL = ""
     const val KEY_BEARER = "Bearer"
 
+    const val CURRENCY_VND = "₫"
+
     private const val BASE_URL = BuildConfig.BASE_URL
-//    private const val BASE_URL_THAILAND = BuildConfig.BASE_URL_THAILAND
     const val LIMIT_ITEM_PAGE = 10
 
     /*API*/

@@ -16,7 +16,7 @@ interface Service {
     @GET(Constants.API_PRODUCTS_BY_SHOP)
     suspend fun getProducts(
             @Path("shop_id") shopId: String,
-            @Query("limit") limit: Int = 1,
+            @Query("limit") limit: Int = Constants.LIMIT_ITEM_PAGE,
             @Query("offset") offset: Int = 0
     ): BaseResponse<DataProduct>
 }

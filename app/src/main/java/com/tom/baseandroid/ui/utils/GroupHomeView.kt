@@ -10,7 +10,7 @@ import com.tom.baseandroid.data.model.DataProduct
 import com.tom.baseandroid.data.model.HomeGroup
 import com.tom.baseandroid.ui.home.CategoryAdapter
 import com.tom.baseandroid.ui.home.ProductAdapter
-import kotlinx.android.synthetic.main.view_list_category.view.*
+import kotlinx.android.synthetic.main.view_group_home.view.*
 
 /**
  *Created by VanTrang.
@@ -23,7 +23,7 @@ class GroupHomeView @JvmOverloads constructor(
     private var mCategoryAdapter: CategoryAdapter? = null
     private var mProductAdapter: ProductAdapter? = null
 
-    override fun getLayout(): Int = R.layout.view_list_category
+    override fun getLayout(): Int = R.layout.view_group_home
 
     fun initView(type: HomeGroup) {
         when (type) {

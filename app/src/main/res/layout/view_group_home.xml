@@ -40,6 +40,7 @@
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
         android:paddingHorizontal="@dimen/dp_6"
+        android:background="@color/defaultBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,14 +16,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="@dimen/dp_1"
-        android:layout_margin="@dimen/dp_5">
+        android:layout_marginBottom="@dimen/dp_6"
+        android:layout_marginHorizontal="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_10"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivImageProduct"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             app:image="@{image}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
             android:gravity="start"
             android:maxLines="2"
             android:text="@{product.name}"
@@ -67,9 +70,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
             android:gravity="start"
+            android:text="@{product.priceWithCurrency()}"
             android:textAlignment="viewStart"
             android:textColor="@color/blue_light"
-            android:textSize="@dimen/sp_16"
             app:layout_constraintStart_toStartOf="@id/tvDiscount"
             app:layout_constraintTop_toBottomOf="@+id/tvDiscount"
             app:layout_goneMarginTop="@dimen/dp_5"
@@ -81,11 +84,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:gravity="start"
+            android:text="@{product.sold(context)}"
             android:textAlignment="viewStart"
             android:textColor="@color/grey_abbey"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintTop_toTopOf="@id/tvPrice"
             app:layout_constraintEnd_toEndOf="@id/ivImageProduct"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
             tools:text="@string/start_now" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

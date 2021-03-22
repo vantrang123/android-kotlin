@@ -2,6 +2,7 @@ package com.tom.baseandroid.ui.home
 
 import android.os.Handler
 import android.os.Looper
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
@@ -38,11 +39,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         initViewModel()
         viewCategory.initView(HomeGroup.CATEGORY)
         viewSuggestion.initView(HomeGroup.SUGGESTION)
-        swipeRefresh?.setOnRefreshListener {
-            viewModel.getCategories()
-            Handler(Looper.getMainLooper()).postDelayed({
-                swipeRefresh?.isRefreshing = false
-            }, 1000)
+        swipeRefresh.apply {
+            setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.blue_light))
+            setOnRefreshListener {
+//                viewModel.getCategories()
+                viewModel.getProducts()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    swipeRefresh?.isRefreshing = false
+                }, 1000)
+            }
         }
     }
 
@@ -93,10 +98,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun initViewModel() {
         super.initViewModel()
         viewModel.apply {
-            getCategories()
+//            getCategories()
+            getProducts()
 
             categories.observe(viewLifecycleOwner, Observer {
-                Handler(Looper.getMainLooper()).postDelayed({ getProducts() }, 1100) // delay cause limit request rapid api
+                Handler(Looper.getMainLooper()).postDelayed(
+                    { getProducts() },
+                    1100
+                ) // delay cause limit request rapid api
                 viewCategory.onDataChange(it, HomeGroup.CATEGORY)
             })
 

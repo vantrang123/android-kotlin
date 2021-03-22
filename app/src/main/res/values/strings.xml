@@ -39,4 +39,8 @@
     <string name="view_more">Xem thêm</string>
     <string name="category">Danh mục</string>
     <string name="suggestion">Gợi ý hôm nay</string>
+
+    // product
+    <string name="shot_currency">đ</string>
+    <string name="sold">Đã bán</string>
 </resources>
