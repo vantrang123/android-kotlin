@@ -3,7 +3,9 @@ package com.tom.baseandroid.ui.home
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
 import com.tom.baseandroid.base.EmptyViewModel
@@ -12,6 +14,8 @@ import com.tom.baseandroid.data.model.HomeGroup
 import com.tom.baseandroid.databinding.FragmentHomeBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.dp
+import com.tom.baseandroid.extensions.onLoadMore
+import com.tom.baseandroid.ui.utils.GroupHomeView
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.PageStyle
@@ -26,7 +30,7 @@ import java.util.ArrayList
  *Created by VanTrang.
  */
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    BannerViewHolder.OnSubViewClickListener {
+    BannerViewHolder.OnSubViewClickListener, GroupHomeView.OnGroupViewListener {
     private lateinit var mViewPager: BannerViewPager<Banner, BannerViewHolder>
     override fun injectViewModel() {
         mViewModel = injectViewModel(viewModelFactory)
@@ -39,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         initViewModel()
         viewCategory.initView(HomeGroup.CATEGORY)
         viewSuggestion.initView(HomeGroup.SUGGESTION)
+        viewSuggestion.setListener(this)
         swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.blue_light))
             setOnRefreshListener {
@@ -99,7 +104,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         super.initViewModel()
         viewModel.apply {
 //            getCategories()
-            getProducts()
+            loadData(true)
 
             categories.observe(viewLifecycleOwner, Observer {
                 Handler(Looper.getMainLooper()).postDelayed(
@@ -110,6 +115,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             })
 
             products.observe(viewLifecycleOwner, Observer {
+//                viewSuggestion.onDataChange(it, HomeGroup.SUGGESTION)
+            })
+
+            data.observe(viewLifecycleOwner, Observer {
                 viewSuggestion.onDataChange(it, HomeGroup.SUGGESTION)
             })
         }
@@ -117,5 +126,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onViewClick(position: Int) {
         snackBar("You clicked $position")
+    }
+
+    override fun callLoadMore(recyclerView: RecyclerView) {
+        scrollView.onLoadMore(recyclerView) {
+            viewModel.loadData(false)
+        }
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    // toolbar
     <declare-styleable name="TopbarView">
         <attr name="tb_title" format="string" />
         <attr name="tb_title_bold" format="boolean" />
@@ -11,5 +13,10 @@
         <attr name="tb_back_color" format="color" />
         <attr name="android:gravity" />
         <attr name="toolbar_title_tv" format="string" />
+    </declare-styleable>
+
+    // recyclerview
+    <declare-styleable name="LoadMoreRecyclerView">
+        <attr name="number_to_load_more" format="integer" />
     </declare-styleable>
 </resources>

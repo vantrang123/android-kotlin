@@ -27,9 +27,9 @@ object Utils {
 
     fun spanSize(s1: String, s2: String): String {
         val span1 = SpannableString(s1)
-        span1.setSpan(AbsoluteSizeSpan(8.sp), 0, s1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        span1.setSpan(AbsoluteSizeSpan(8.sp, false), 0, s1.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         val span2 = SpannableString(s2)
-        span2.setSpan(AbsoluteSizeSpan(13.sp), 0, s2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        span2.setSpan(AbsoluteSizeSpan(13.sp, false), 0, s2.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         return TextUtils.concat(span1, span2).toString()
     }
 }

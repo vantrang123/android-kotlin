@@ -16,7 +16,7 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class DataProduct(
     @SerializedName("total_count")
-    val totalCount: String? = null,
+    val totalCount: Int? = null,
     @SerializedName("items")
     val products: MutableList<Product>? = null
 ) : Parcelable {
