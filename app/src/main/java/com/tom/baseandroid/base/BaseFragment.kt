@@ -9,10 +9,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.tom.baseandroid.ui.utils.LoadingProgress
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

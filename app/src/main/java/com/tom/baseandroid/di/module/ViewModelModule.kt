@@ -8,6 +8,7 @@ import com.tom.baseandroid.di.factory.ViewModelFactory
 import com.tom.baseandroid.ui.home.HomeViewModel
 import com.tom.baseandroid.ui.login.LoginViewModel
 import com.tom.baseandroid.ui.player.PlayerViewModel
+import com.tom.baseandroid.ui.search.SearchViewModel
 import com.tom.baseandroid.ui.splash.SplashViewModel
 import com.tom.baseandroid.ui.tutorial.TutorialViewModel
 import dagger.Binds
@@ -48,4 +49,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     internal abstract fun providesHomeViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    internal abstract fun providesSearchViewModel(viewModel: SearchViewModel): ViewModel
 }

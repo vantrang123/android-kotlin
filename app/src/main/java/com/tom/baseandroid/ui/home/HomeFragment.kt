@@ -3,19 +3,19 @@ package com.tom.baseandroid.ui.home
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseFragment
-import com.tom.baseandroid.base.EmptyViewModel
 import com.tom.baseandroid.data.model.Banner
 import com.tom.baseandroid.data.model.HomeGroup
 import com.tom.baseandroid.databinding.FragmentHomeBinding
 import com.tom.baseandroid.di.injectViewModel
 import com.tom.baseandroid.extensions.dp
+import com.tom.baseandroid.extensions.lauchActivity
 import com.tom.baseandroid.extensions.onLoadMore
-import com.tom.baseandroid.ui.utils.GroupHomeView
+import com.tom.baseandroid.ui.customview.GroupHomeView
+import com.tom.baseandroid.ui.search.SearchActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.PageStyle
@@ -52,6 +52,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 Handler(Looper.getMainLooper()).postDelayed({
                     swipeRefresh?.isRefreshing = false
                 }, 1000)
+            }
+        }
+        viewHeaderBar.onClick {
+            if (it) requireActivity().lauchActivity<SearchActivity> {  }
+            else {
+                snackBar("Search with camera")
             }
         }
     }

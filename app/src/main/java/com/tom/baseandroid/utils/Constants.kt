@@ -26,5 +26,6 @@ object Constants {
     /*API*/
     const val API_CATEGORIES = "${BASE_URL}list-all-categories"
     const val API_PRODUCTS_BY_SHOP = "${BASE_URL}shop/{shop_id}/list-items"
+    const val API_SEARCH = "${BASE_URL}search"
 
 }

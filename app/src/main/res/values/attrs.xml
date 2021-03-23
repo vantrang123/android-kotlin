@@ -19,4 +19,9 @@
     <declare-styleable name="LoadMoreRecyclerView">
         <attr name="number_to_load_more" format="integer" />
     </declare-styleable>
+
+    // searchbar
+    <declare-styleable name="SearchBarView">
+        <attr name="search_bar_drawable_back" format="reference" />
+    </declare-styleable>
 </resources>

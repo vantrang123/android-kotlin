@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.tom.baseandroid.R
-import com.tom.baseandroid.ui.utils.LoadingProgress
+import com.tom.baseandroid.ui.customview.LoadingProgress
 import dagger.android.support.DaggerDialogFragment
 import javax.inject.Inject
 

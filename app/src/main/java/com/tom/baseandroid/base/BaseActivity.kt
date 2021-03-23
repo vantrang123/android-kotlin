@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.tom.baseandroid.R
 import com.tom.baseandroid.data.network.NetworkConnectionLiveData
-import com.tom.baseandroid.ui.utils.LoadingProgress
+import com.tom.baseandroid.ui.customview.LoadingProgress
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -20,17 +20,16 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
     private lateinit var mViewDataBinding: B
     protected lateinit var mViewModel: V
     private var loadingProgress: LoadingProgress? = null
-    private var snackBarNetwork : Snackbar? = null
+    private var snackBarNetwork: Snackbar? = null
 
     val binding: B get() = mViewDataBinding
     val viewModel: V get() = mViewModel
 
+    @LayoutRes
+    abstract fun getLayoutResourceId(): Int
     abstract fun injectViewModel()
     abstract fun getViewModelClass(): Class<V>
     abstract fun initView()
-
-    @LayoutRes
-    abstract fun getLayoutResourceId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -63,7 +62,8 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
 
     private fun onNetworkConnectionChanged(isConnected: Boolean) {
         val messageToUser = "You are offline now."
-        if (snackBarNetwork == null) snackBarNetwork = snackBar(messageToUser, Snackbar.LENGTH_INDEFINITE, false)
+        if (snackBarNetwork == null) snackBarNetwork =
+            snackBar(messageToUser, Snackbar.LENGTH_INDEFINITE, false)
         if (!isConnected) {
             snackBarNetwork?.show()
         } else {

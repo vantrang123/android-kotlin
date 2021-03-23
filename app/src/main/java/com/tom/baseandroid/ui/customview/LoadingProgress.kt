@@ -1,4 +1,4 @@
-package com.tom.baseandroid.ui.utils
+package com.tom.baseandroid.ui.customview
 
 import android.app.Dialog
 import android.content.Context

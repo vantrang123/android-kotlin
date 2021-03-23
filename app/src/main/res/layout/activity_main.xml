@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="@color/defaultBackgroundColor">
 
-        <com.tom.baseandroid.ui.utils.BlockViewPager
+        <com.tom.baseandroid.ui.customview.BlockViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"

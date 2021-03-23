@@ -5,6 +5,7 @@ import com.tom.baseandroid.ui.EmptyActivity
 import com.tom.baseandroid.ui.login.LoginActivity
 import com.tom.baseandroid.ui.main.MainActivity
 import com.tom.baseandroid.ui.player.PlayerActivity
+import com.tom.baseandroid.ui.search.SearchActivity
 import com.tom.baseandroid.ui.splash.SplashActivity
 import com.tom.baseandroid.ui.tutorial.TutorialActivity
 import dagger.Module
@@ -34,4 +35,8 @@ abstract class ActivityBuilder {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MainModule::class])
     abstract fun contributesMainActivity(): MainActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract fun contributesSearchActivity(): SearchActivity
 }

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/defaultBackgroundColor">
 
-        <com.tom.baseandroid.ui.utils.ToolbarView
+        <com.tom.baseandroid.ui.customview.ToolbarView
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

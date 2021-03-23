@@ -50,7 +50,8 @@
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin">
 
-                    <com.tom.baseandroid.ui.utils.HeaderBarView
+                    <com.tom.baseandroid.ui.customview.HeaderBarView
+                        android:id="@+id/viewHeaderBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </androidx.appcompat.widget.Toolbar>
@@ -79,12 +80,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.tom.baseandroid.ui.utils.GroupHomeView
+                    <com.tom.baseandroid.ui.customview.GroupHomeView
                         android:id="@+id/viewCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.tom.baseandroid.ui.utils.GroupHomeView
+                    <com.tom.baseandroid.ui.customview.GroupHomeView
                         android:id="@+id/viewSuggestion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
