@@ -29,4 +29,12 @@ class BlockViewPager @JvmOverloads constructor(
     fun setPagingEnable(isEnable: Boolean) {
         this.isEnable = isEnable
     }
+
+    override fun setCurrentItem(item: Int, smoothScroll: Boolean) {
+        super.setCurrentItem(item, isEnable)
+    }
+
+    override fun setCurrentItem(item: Int) {
+        super.setCurrentItem(item, isEnable)
+    }
 }

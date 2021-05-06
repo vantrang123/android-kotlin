@@ -37,11 +37,11 @@ class MainViewpagerAdapter(
 
     private val imageResId =
         intArrayOf(
-            R.color.selector_icon_home,
-            R.color.selector_icon_new_feed,
-            R.color.selector_icon_live_stream,
-            R.color.selector_icon_notification,
-            R.color.selector_icon_manager_account
+            R.drawable.selector_icon_home,
+            R.drawable.selector_icon_new_feed,
+            R.drawable.selector_icon_live_stream,
+            R.drawable.selector_icon_notification,
+            R.drawable.selector_icon_manager_account
         )
 
     private val titles = context.resources.getStringArray(R.array.title_viewpager_main)

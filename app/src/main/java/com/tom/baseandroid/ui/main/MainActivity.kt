@@ -40,7 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, EmptyViewModel>() {
 
     private fun setupViewPager() {
         viewPager.apply viewPager@{
-            setPagingEnable(true)
+            setPagingEnable(false)
             mAdapter = MainViewpagerAdapter(this@MainActivity, supportFragmentManager)
             adapter = mAdapter
             offscreenPageLimit = 5
