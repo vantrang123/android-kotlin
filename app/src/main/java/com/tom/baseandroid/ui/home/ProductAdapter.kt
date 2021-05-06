@@ -41,8 +41,15 @@ class ProductAdapter : BaseAdapter() {
     }
 
     fun updateData(data: MutableList<DataProduct.Product>) {
-        mData.clear()
-        mData.addAll(data)
-        notifyDataSetChanged()
+        if (mData.isEmpty()) {
+            mData.addAll(data)
+            notifyDataSetChanged()
+        }
+        else {
+            for (i in data.size - mData.size until data.size) {
+                mData.add(data[i])
+            }
+            notifyItemInserted(mData.size)
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.tom.baseandroid.ui.home
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,7 +11,6 @@ import com.tom.baseandroid.data.repository.CategoryRepository
 import com.tom.baseandroid.data.repository.ProductRepository
 import com.tom.baseandroid.extensions.getDefault
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -35,9 +32,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
-                val result =
-                    withContext(io) { async { productRepo.observerProducts("221366989", page) } } /** need change shop id **/
-                result.await().apply {
+                setStateLoadMoreLoading()
+                val result = withContext(io) {
+                    productRepo.observerProducts("221366989", page)
+                } /** need change shop id **/
+
+                result.apply {
                     isLoading.postValue(false)
                     _products.postValue(data?.products)
 
@@ -50,9 +50,11 @@ class HomeViewModel @Inject constructor(
                             list.addAll(it.products ?: mutableListOf())
                             _list.postValue(list)
                         }
+                        setStateLoadMoreLoaded()
                     }
                 }
             } catch (e: Exception) {
+                setStateLoadMoreLoaded()
                 handleError(e.message)
             }
         }
@@ -62,8 +64,8 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(main) {
             try {
                 isLoading.postValue(true)
-                val result = withContext(io) { async { categoryRepo.observerCategories() } }
-                result.await().apply {
+                val result = withContext(io) { categoryRepo.observerCategories() }
+                result.apply {
                     isLoading.postValue(false)
                     _categories.postValue(data?.categories)
                 }

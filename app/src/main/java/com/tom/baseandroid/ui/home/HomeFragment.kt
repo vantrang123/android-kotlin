@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.blue_light))
             setOnRefreshListener {
-//                viewModel.getCategories()
+                viewModel.getCategories()
                 viewModel.getProducts()
                 Handler(Looper.getMainLooper()).postDelayed({
                     swipeRefresh?.isRefreshing = false
@@ -109,12 +109,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun initViewModel() {
         super.initViewModel()
         viewModel.apply {
-//            getCategories()
-            loadData(true)
+            getCategories()
 
             categories.observe(viewLifecycleOwner, Observer {
                 Handler(Looper.getMainLooper()).postDelayed(
-                    { getProducts() },
+                    { loadData(true) },
                     1100
                 ) // delay cause limit request rapid api
                 viewCategory.onDataChange(it, HomeGroup.CATEGORY)

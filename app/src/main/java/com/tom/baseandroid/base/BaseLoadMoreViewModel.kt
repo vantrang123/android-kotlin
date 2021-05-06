@@ -43,14 +43,14 @@ abstract class BaseLoadMoreViewModel<T> : BaseViewModel() {
         _list.postValue(arrayListOf())
     }
 
-    fun setLoading() {
+    fun setStateLoadMoreLoading() {
         isLoading.postValue(page == 0)
         if (page != 0) {
             _state.postValue(NetworkState.LOADING)
         }
     }
 
-    fun dismissLoading() {
+    fun setStateLoadMoreLoaded() {
         isLoading.postValue(false)
         if (page != 0) {
             _state.postValue(NetworkState.LOADED)
