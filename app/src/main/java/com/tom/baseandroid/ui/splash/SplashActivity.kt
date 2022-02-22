@@ -1,8 +1,6 @@
 package com.tom.baseandroid.ui.splash
 
-import android.os.Handler
-import android.os.Looper
-import android.view.animation.AnimationUtils
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.tom.baseandroid.R
 import com.tom.baseandroid.base.BaseActivity
 import com.tom.baseandroid.databinding.ActivitySplashBinding
@@ -23,21 +21,36 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun getViewModelClass(): Class<SplashViewModel> = SplashViewModel::class.java
 
+    override fun beforeOnCreate() {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { true }
+        }
+    }
+
     override fun initView() {
-        binding.ivLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in).apply {
-            duration = 2_000
-        })
-        Handler(Looper.getMainLooper()).postDelayed({
-            when {
-                prefs.isFirstUseApp -> {
-                    lauchActivity<TutorialActivity> { }
-                }
-                prefs.user != null -> {
-                    lauchActivity<MainActivity> { }
-                }
-                else -> lauchActivity<LoginActivity> { }
+        when {
+            prefs.isFirstUseApp -> {
+                lauchActivity<TutorialActivity> { }
             }
-        }, 2_000)
+            prefs.user != null -> {
+                lauchActivity<MainActivity> { }
+            }
+            else -> lauchActivity<LoginActivity> { }
+        }
+//        binding.ivLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in).apply {
+//            duration = 2_000
+//        })
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            when {
+//                prefs.isFirstUseApp -> {
+//                    lauchActivity<TutorialActivity> { }
+//                }
+//                prefs.user != null -> {
+//                    lauchActivity<MainActivity> { }
+//                }
+//                else -> lauchActivity<LoginActivity> { }
+//            }
+//        }, 2_000)
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_splash

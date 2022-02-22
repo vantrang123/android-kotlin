@@ -32,11 +32,15 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : DaggerAppC
     abstract fun initView()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        beforeOnCreate()
         super.onCreate(savedInstanceState)
         injectViewModel()
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId())
         initView()
+    }
+
+    open fun beforeOnCreate() {
+        setTheme(R.style.AppTheme)
     }
 
     open fun initViewModel() {
