@@ -102,6 +102,7 @@ dependencies {
     implementation converterGson
     implementation adapterRxjava2
     implementation loggingInterceptor
+    implementation urlConnection
     implementation gson
     implementation gsonConverter
     implementation lifecycleExtensions

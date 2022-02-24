@@ -33,7 +33,8 @@ ext {
     gson = "com.google.code.gson:gson:$gsonVersion"
     gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
 
-    loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingVersion"
+    loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.5.0"
+    urlConnection = "com.squareup.okhttp3:okhttp:3.11.0"
 
     koinAndroid = "org.koin:koin-android:$koinVersion"
     koinAndroidScope = "org.koin:koin-android-scope:$koinVersion"

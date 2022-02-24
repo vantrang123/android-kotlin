@@ -20,4 +20,5 @@
     <color name="gray">#F4F4F4</color>
     <color name="transparent">#00ffffff</color>
     <color name="white_smoke">#f5f5f5</color>
+    <color name="animated_icon_color">#99dddddd</color>
 </resources>
